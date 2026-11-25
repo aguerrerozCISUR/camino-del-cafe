@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El camino del café</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* VOICE: alegre y tierno, para niños de primero; ordenado para docentes y familias
+   IDEA: un juego de mesa de finca cafetera hecho a mano: marco de madera, fichas-medallón, cartas
+   PICTURE: el logo animado grande en portada; el tablero con la escena de Preventín en el centro
+   COLOUR and TYPE: cielo, verde cafetal, rojo cereza, madera; azul y amarillo del escudo; Baloo 2 + Nunito
+   LAYOUT: portada con logo y dos puertas > juego > investigación por momentos */
+:root{color-scheme:light dark;
+--bg:light-dark(#f3f9ee,#0f1b14);--ink:light-dark(#22261f,#eef3ea);--soft:light-dark(#55604f,#b7c4b0);
+--card:light-dark(#ffffff,#1a2a20);--line:light-dark(#dfe8d6,#2d4234);
+--azul:#0b3a82;--amar:#f6b80f;--cereza:#d0242b;--hoja:#2f8a3a;--madera:#8a5a33;--maderaD:#5e3a1e;--crema:light-dark(#fff7e6,#2a2418)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Nunito,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Baloo 2",Nunito,sans-serif;line-height:1.05;margin:0 0 .4em;text-wrap:balance;font-weight:800}
+h2{font-size:clamp(28px,4vw,40px)}h3{font-size:22px}
+p{margin:0 0 .8em;max-width:68ch}
+button{font:inherit;cursor:pointer;border:0;border-radius:16px;min-height:44px;padding:10px 18px;font-weight:900}
+button:focus-visible,a:focus-visible{outline:3px solid var(--amar);outline-offset:3px}
+.band{padding:clamp(24px,4vw,56px) max(4vw,14px)}
+.wrap{max-width:1180px;margin:0 auto}
+.top{background:var(--azul);color:#fff;display:flex;align-items:center;gap:12px;padding:8px max(4vw,14px);flex-wrap:wrap;position:relative;z-index:2}
+.top img{width:48px;height:auto}.top b{font-family:"Baloo 2";font-size:19px;line-height:1.1}.top small{display:block;opacity:.85;font-size:13px}
+.top nav{margin-inline-start:auto;display:flex;gap:6px;flex-wrap:wrap}
+.top nav a{color:#fff;text-decoration:none;font-weight:900;padding:8px 14px;border-radius:12px;font-size:15px}
+.top nav a[aria-current]{background:var(--amar);color:#22261f}
+.view{display:none}.view.on{display:block}
+.pill{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:900;padding:10px 18px;border-radius:16px;background:var(--card);color:var(--ink);border:2px solid var(--line)}
+/* ---------- portada ---------- */
+.cover{padding:clamp(16px,3vw,36px) max(4vw,14px) 0}
+.frame{position:relative;max-width:1180px;margin:0 auto;aspect-ratio:16/8.4;border-radius:34px;overflow:hidden;
+background:radial-gradient(130% 55% at 0% 100%,#6fb544 60%,transparent 61%),radial-gradient(90% 40% at 30% 100%,#86c556 60%,transparent 61%),linear-gradient(#7cc8ee,#d4effa 75%);
+box-shadow:0 0 0 clamp(8px,1.4vw,16px) #8a5a33,0 0 0 calc(clamp(8px,1.4vw,16px) + 3px) #5e3a1e,0 18px 30px #0003}
+.scene{position:absolute;top:0;right:0;bottom:0;width:66%;background:url(img/escena-finca.jpg) 80% 40%/cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%);mask-image:linear-gradient(90deg,transparent,#000 20%)}
+.frame::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(transparent,#1d3b10bb)}
+.frame .logo{position:absolute;left:3%;top:4%;width:min(37%,440px);filter:drop-shadow(0 10px 14px #0004);z-index:1}
+.doors{position:absolute;inset:auto 0 0;z-index:2;display:flex;justify-content:center;gap:clamp(10px,2vw,22px);padding:0 4% 4%;flex-wrap:wrap}
+.door{display:flex;gap:14px;align-items:center;text-decoration:none;color:#fff;border-radius:24px;padding:12px 22px 12px 12px;box-shadow:0 6px 0 #0004;transition:transform .15s;flex:0 1 380px}
+.door:hover{transform:translateY(-3px)}
+.door.j{background:var(--cereza)}.door.i{background:var(--azul)}
+.door .ic{flex:none;width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;border:3px solid #fff}
+.door .ic img{width:100%;height:100%;object-fit:cover}
+.door b{font-family:"Baloo 2";font-size:28px;display:block;line-height:1}.door span{font-size:15px;opacity:.95;line-height:1.3;display:block}
+.intro{max-width:1180px;margin:clamp(26px,4vw,44px) auto 0;display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:center}
+.intro img{width:150px;filter:drop-shadow(0 8px 6px #0002)}
+.intro h1{font-size:clamp(28px,4vw,42px);color:var(--hoja)}
+.intro p{font-size:18px}
+.strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+.strip img{height:190px;width:auto;border-radius:18px;scroll-snap-align:start;flex:none;border:4px solid #fff;box-shadow:0 4px 0 #0001}
+@media(max-width:760px){.frame{aspect-ratio:auto;display:flex;flex-direction:column}.frame::after{display:none}.frame .logo{order:-1;position:relative;display:block;width:62%;margin:12px auto -8%;left:auto;top:auto}.scene{position:relative;width:100%;aspect-ratio:4/3;-webkit-mask-image:linear-gradient(transparent,#000 18%);mask-image:linear-gradient(transparent,#000 18%);background-position:78% 40%}.doors{position:relative;flex-direction:column;align-items:stretch;background:#3f7d2a;padding:14px}.door{flex:none}.door b{font-size:24px}.intro{grid-template-columns:90px minmax(0,1fr);gap:12px}.intro img{width:90px}}
+/* ---------- juego: elegir jugadores ---------- */
+.setup{max-width:960px;margin:0 auto;text-align:center}
+.setup>p{margin-inline:auto}
+.chars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:16px 0 20px}
+.char{background:var(--card);border:4px solid var(--line);border-radius:26px;padding:14px 8px 12px;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;min-height:0}
+.char .av{width:min(130px,100%)}
+.char b{font-family:"Baloo 2";font-size:20px;line-height:1}
+.char small{color:var(--soft);font-weight:700}
+.char[aria-pressed=true]{border-color:var(--c);box-shadow:0 6px 0 var(--c)}
+.char .ck{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:var(--line);display:grid;place-items:center;color:#fff;font-weight:900}
+.char[aria-pressed=true] .ck{background:var(--c)}
+.goal{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 22px}
+.goal button{background:var(--card);color:var(--ink);border:3px solid var(--line)}
+.goal button[aria-pressed=true]{background:var(--amar);border-color:#c99400;color:#22261f}
+.go{background:var(--cereza);color:#fff;font-size:22px;padding:14px 34px;box-shadow:0 6px 0 #8f1218}
+.err{color:var(--cereza);font-weight:900;min-height:1.4em;margin:8px 0 0}
+/* avatar medallón */
+.av{aspect-ratio:1;border-radius:50%;background:#cfeefc;border:4px solid var(--c);overflow:hidden;box-shadow:0 4px 0 #0003;display:block}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+/* ---------- tablero ---------- */
+.board{width:min(100%,980px);aspect-ratio:1;margin:0 auto;display:grid;grid-template:1.45fr repeat(9,minmax(0,1fr)) 1.45fr/1.45fr repeat(9,minmax(0,1fr)) 1.45fr;gap:clamp(2px,.45vw,5px);padding:clamp(6px,1.3vw,14px);border-radius:28px;
+background:repeating-linear-gradient(100deg,#8a5a33 0 14px,#946339 14px 22px,#81532f 22px 38px);box-shadow:inset 0 0 0 3px #b07a48,0 12px 0 var(--maderaD),0 20px 30px #0003}
+.cell{position:relative;border-radius:clamp(5px,1vw,11px);background:#fffaf0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:"Baloo 2";font-weight:800;font-size:clamp(9px,1.15vw,13px);line-height:1;color:#3a2a1a;box-shadow:0 3px 0 #0003;overflow:hidden;padding:clamp(6px,1.1vw,11px) 2px 3px}
+.cell::before{content:"";position:absolute;inset:0 0 auto;height:clamp(4px,.8vw,8px);background:var(--k)}.cell.v::before{inset:0 auto 0 0;width:clamp(4px,.8vw,8px);height:auto}.cell.v.r::before{inset:0 0 0 auto}.cell.b::before{inset:auto 0 0}
+.cell svg,.cell .ii{width:clamp(20px,4vw,40px);height:clamp(20px,4vw,40px);max-width:none;flex:none;margin-bottom:3px;object-fit:contain}.cell.v{padding-top:3px;padding-bottom:3px}
+.cell.corner{background:var(--k);font-size:clamp(11px,1.7vw,19px)}.cell.corner svg,.cell.corner .ii{width:clamp(28px,6.4vw,66px);height:clamp(28px,6.4vw,66px)}.cell.corner::before{display:none}
+.cell.here{box-shadow:0 0 0 4px var(--amar),0 4px 0 #0003}
+.cell .sh{display:none}
+.toks{position:absolute;inset:0;pointer-events:none}
+.tok{position:absolute;width:min(46%,46px);aspect-ratio:1}
+.tok .av{border-width:3px;box-shadow:0 3px 0 #0005}
+.tok.t0{left:2%;bottom:2%}.tok.t1{right:2%;bottom:2%}.tok.t2{left:2%;top:2%}.tok.t3{right:2%;top:2%}
+.tok.solo{left:50%;top:50%;transform:translate(-50%,-50%);width:min(62%,60px)}.tok.solo.me{animation:hop2 .9s ease-in-out infinite}@keyframes hop2{50%{transform:translate(-50%,-62%)}}
+.tok.me{animation:hop .9s ease-in-out infinite;z-index:2}
+@keyframes hop{50%{transform:translateY(-12%)}}
+.center{grid-area:2/2/11/11;border-radius:18px;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:clamp(6px,1.4vw,14px);background:radial-gradient(70% 60% at 50% 70%,#bfe4ee,#5d9fca 70%,#4a8fbd);box-shadow:inset 0 0 0 4px #fff8}
+.center::before{content:"";position:absolute;inset:auto 0 0;aspect-ratio:16/9;background:url(img/escena-finca.jpg) center/cover;-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}.center>*{position:relative}.center{justify-content:flex-start!important}.ctop{width:100%;display:grid;grid-template-columns:38% minmax(0,1fr);gap:3%;align-items:start}.ctop .clogo{width:100%;margin:0}.cside{display:flex;flex-direction:column;align-items:center;gap:8px}.cside .sacks{width:100%}@media(max-width:700px){.ctop{grid-template-columns:1fr}.ctop .clogo{display:none}}
+.clogo{width:44%;margin-top:-1%;filter:drop-shadow(0 4px 6px #0003)}
+.cmid{display:flex;align-items:center;gap:clamp(8px,2vw,18px)}
+.turn{background:#fffffff0;border-radius:18px;padding:6px 12px 6px 6px;display:flex;align-items:center;gap:8px;font-weight:900;font-size:clamp(12px,1.9vw,16px);color:#22261f;box-shadow:0 3px 0 #0002}
+.turn .av{width:clamp(30px,6vw,46px)}
+.dice{background:#fff;border-radius:22%;width:clamp(54px,11vw,104px);height:clamp(54px,11vw,104px);padding:7px;box-shadow:0 6px 0 #c9c1b4,0 10px 14px #0003;min-height:0}
+.dice:active{transform:translateY(3px);box-shadow:0 3px 0 #c9c1b4}
+.dice svg{width:100%;height:100%}
+.dice.roll{animation:sh .5s}
+@keyframes sh{25%{transform:rotate(-16deg) scale(1.05)}50%{transform:rotate(12deg)}75%{transform:rotate(-8deg) scale(1.05)}}
+.hint{font-size:clamp(11px,1.6vw,14px);font-weight:900;color:#fff;text-shadow:0 1px 3px #0009}
+.sacks{width:min(100%,520px);display:grid;gap:4px;background:#fffffff0;border-radius:14px;padding:6px 10px;box-shadow:0 3px 0 #0002}
+.sack{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-size:clamp(11px,1.7vw,14px);font-weight:900;color:#22261f}
+.sack .av{width:clamp(20px,4vw,30px);border-width:2px;box-shadow:none}
+.bar{height:clamp(8px,1.4vw,12px);background:#eadfcf;border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;border-radius:8px;transition:width .5s;background:repeating-linear-gradient(90deg,var(--c) 0 10px,color-mix(in srgb,var(--c) 80%,#fff) 10px 14px)}
+.under{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+/* ---------- ventana ---------- */
+.modal{position:fixed;inset:0;background:#10200fb3;display:none;align-items:center;justify-content:center;padding:12px;z-index:20}
+.modal.on{display:flex}
+.box{background:var(--card);color:var(--ink);border-radius:28px;max-width:640px;width:100%;max-height:94vh;overflow:auto;box-shadow:0 10px 0 #0003;animation:pop .25s ease-out}
+@keyframes pop{from{transform:scale(.92)}}
+.mh{background:var(--k);padding:14px 18px;display:flex;align-items:center;gap:12px;color:#22261f}
+.mh svg,.mh .ii{width:52px;height:52px;flex:none;background:#fff;border-radius:14px;padding:4px;object-fit:contain}
+.mh small{display:block;font-weight:900;font-size:13px;opacity:.8}
+.mh h2{margin:0;font-size:clamp(24px,4vw,30px)}
+.mh .av{width:54px;margin-inline-start:auto;flex:none}
+.mb{padding:14px 20px 20px}
+.media{border-radius:18px;overflow:hidden;background:#000;margin:0 0 12px;display:flex;justify-content:center}
+.media.icon{background:var(--k);padding:18px}.media.icon svg,.media.icon img{height:150px;width:auto}.media img,.media video{width:100%;max-height:50vh;object-fit:contain;display:block}
+.big{font-size:21px;font-weight:800}.ask{background:var(--crema);border-radius:14px;padding:10px 14px;font-weight:700}
+.prize{display:inline-flex;align-items:center;gap:8px;font-family:"Baloo 2";font-size:24px;color:var(--hoja);margin:2px 0 14px;font-weight:800}
+.prize.bad{color:var(--cereza)}
+.bean{width:22px;height:22px;flex:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ok{background:var(--hoja);color:#fff;box-shadow:0 4px 0 #1d5e25}.ghost{background:var(--bg);color:var(--ink);border:2px solid var(--line)}
+.ans{display:grid;gap:10px;margin:12px 0}
+.ans button{background:var(--bg);color:var(--ink);border:3px solid var(--line);text-align:start;font-size:19px}
+.ans button.right{border-color:var(--hoja);background:#d9f2c6;color:#173404}.ans button.wrong{border-color:var(--cereza);background:#ffdcd9;color:#5c0a0d}
+.win{text-align:center;padding:24px 20px;position:relative;overflow:hidden}
+.win .av{width:170px;margin:0 auto 12px}
+.conf{position:absolute;top:-20px;width:10px;height:16px;border-radius:3px;animation:fall 2.4s linear infinite}
+@keyframes fall{to{transform:translateY(560px) rotate(540deg)}}
+/* ---------- investigación ---------- */
+.ihead{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:20px;align-items:center;margin-bottom:18px}
+.ihead img{width:100%}
+.mom{border-top:8px solid var(--c);background:var(--card);border-radius:0 0 26px 26px;padding:22px clamp(16px,3vw,30px);margin:0 0 26px;box-shadow:0 4px 0 #0001}
+.mom .num{font-family:"Baloo 2";color:var(--c);font-size:19px;font-weight:800}
+.gal{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 10px}
+.gal button{flex:none;scroll-snap-align:start;padding:0;background:none;border-radius:16px;overflow:hidden;min-height:0;position:relative}
+.gal img{height:200px;width:auto;display:block}
+.gal .play{position:absolute;inset:0;display:grid;place-items:center}
+.gal .play i{width:54px;height:54px;border-radius:50%;background:#fffe;display:grid;place-items:center}
+.gal figcaption{position:absolute;inset:auto 0 0;background:#000b;color:#fff;font-size:13px;padding:6px 8px;text-align:start;font-weight:800}
+.vids .gal button{width:250px}.vids .gal img{height:160px;width:100%;object-fit:cover}
+.learn{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;padding:0;list-style:none}
+.learn li{background:var(--crema);border-radius:16px;padding:12px 14px}
+.learn b{display:block;font-family:"Baloo 2";font-size:20px;color:var(--madera)}
+:root[data-theme=dark] .learn b{color:var(--amar)}
+table{border-collapse:collapse;width:100%;font-size:15px;margin-top:8px}td,th{border-bottom:1px solid var(--line);padding:8px;text-align:start}
+.foot{background:var(--azul);color:#fff;text-align:center;font-size:14px;padding:18px}
+@media(max-width:600px){.ihead{grid-template-columns:1fr}.ihead img{width:160px;margin:0 auto}.top nav{margin:0;width:100%}.chars{gap:8px}.char b{font-size:16px}.char small{display:none}}
+@media(max-width:700px){.cell .full,.cell .sh{display:none}.cell svg,.cell .ii,.cell.v svg,.cell.v .ii{width:78%;height:auto;aspect-ratio:1}.cell.corner svg,.cell.corner .ii{width:70%;height:auto}.cell.corner .full{display:inline;font-size:10px}.chars{grid-template-columns:repeat(2,minmax(0,1fr))}.clogo{width:40%}}@media(max-width:480px){.cell.corner .full{display:none}.hint{display:none}.sacks{gap:2px;padding:4px 8px}.turn span{display:none}.turn{padding:4px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="img/escudo.png" alt="Escudo I.E. Ciudadela del Sur">
+  <div><b>El camino del café</b><small>Grado primero · I.E. Ciudadela del Sur · Sede La Fachada</small></div>
+  <nav><a href="#inicio">Inicio</a><a href="#jugar">Jugar</a><a href="#investigacion">La investigación</a></nav>
+</header>
+
+<main>
+<section id="v-inicio" class="view">
+  <div class="cover">
+    <div class="frame">
+      <div class="scene" role="img" aria-label="Preventín arriero con su mula en la finca cafetera"></div>
+      <img class="logo" src="img/logo.webp" alt="El camino del café">
+      <div class="doors">
+        <a class="door j" href="#jugar"><span class="ic"><img src="img/ficha-mula.png" alt=""></span><div><b>Jugar</b><span>Tira el dado, recorre la finca y llena tu costal de granos</span></div></a>
+        <a class="door i" href="#investigacion"><span class="ic"><svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path d="M13 8v24l20-12z" fill="#0b3a82"/></svg></span><div><b>Ver la investigación</b><span>Fotos, entrevistas, dibujos, tips y maquetas</span></div></a>
+      </div>
+    </div>
+    <div class="intro">
+      <img src="img/preventin.gif" alt="Preventín, la mascota">
+      <div><h1>Una historia que germina en nuestra huerta escolar</h1><p>Los niños y niñas de primero exploraron la huerta, entrevistaron a sus abuelos y familias y registraron todo lo que descubrieron sobre la planta del café y el Paisaje Cultural Cafetero.</p></div>
+    </div>
+  </div>
+  <div class="band"><div class="wrap">
+    <h2>Así investigamos</h2>
+    <div class="strip" id="strip"></div>
+  </div></div>
+</section>
+
+<section id="v-jugar" class="view band">
+  <div class="wrap">
+    <div id="setup" class="setup">
+      <h2>¿Quién recorre el camino del café?</h2>
+      <p>Elijan de 2 a 4 personajes, uno por equipo. Tiren el dado y avancen por la finca. En cada casilla verán una foto o un video y luego responderán una pregunta: si aciertan, recogen granos. Gana quien primero llene su costal.</p>
+      <div class="chars" id="chars"></div>
+      <h3>¿Cuántos granos llenan el costal?</h3>
+      <div class="goal" id="goal"></div>
+      <button class="go" id="start">¡A jugar!</button>
+      <p class="err" id="err" aria-live="polite"></p>
+    </div>
+    <div id="game" hidden>
+      <div class="board" id="board"></div>
+      <div class="under"><button class="pill" id="restart">Nuevo juego</button><a class="pill" href="#investigacion">Ver la investigación completa</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="v-investigacion" class="view band">
+  <div class="wrap">
+    <div class="ihead"><div><h2>La investigación de grado primero</h2>
+    <p>Queríamos conocer la planta del café de nuestra huerta escolar: cómo es, qué necesita para crecer y qué saben de ella nuestros abuelos y familias. Investigamos en cuatro momentos.</p></div><img src="img/logo.webp" alt="" loading="lazy"></div>
+    <div id="moms"></div>
+    <div class="mom" style="--c:var(--azul)">
+      <span class="num">Ficha</span><h3>Técnicas e instrumentos</h3>
+      <table><tr><th>Técnica</th><th>Evidencia</th></tr>
+      <tr><td>Observación directa</td><td>Fichas de observación</td></tr>
+      <tr><td>Exploración del entorno</td><td>Fotografías y dibujos científicos</td></tr>
+      <tr><td>Entrevistas</td><td>Preguntas y testimonios en video</td></tr>
+      <tr><td>Consulta documental</td><td>Videos y materiales informativos</td></tr>
+      <tr><td>Registro de experiencias</td><td>Audios, tips y relatos de los estudiantes</td></tr>
+      <tr><td>Socialización</td><td>Periódico digital escolar</td></tr></table>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">Proyecto de investigación de grado primero · Periódico digital escolar · I.E. Ciudadela del Sur, Sede La Fachada<br><b>Made by: Andrea Guerrero</b></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="box" id="box"></div></div>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const IC={
+semilla:'<ellipse cx="32" cy="34" rx="14" ry="19" fill="#8a5a33"/><path d="M32 17c-5 9-5 25 0 34" stroke="#e8c9a0" stroke-width="3.5" fill="none"/>',
+brote:'<path d="M32 54V28" stroke="#2f8a3a" stroke-width="5" stroke-linecap="round"/><path d="M32 34c-12 0-19-8-19-17 11 0 19 6 19 17zM32 30c10 0 17-7 17-15-10 0-17 5-17 15z" fill="#4caf50"/><path d="M12 52h40l-4 8H16z" fill="#8a5a33"/>',
+planta:'<path d="M32 58V12" stroke="#8a5a33" stroke-width="4" stroke-linecap="round"/><g fill="#2f8a3a"><ellipse cx="20" cy="20" rx="11" ry="5" transform="rotate(-20 20 20)"/><ellipse cx="44" cy="20" rx="11" ry="5" transform="rotate(20 44 20)"/><ellipse cx="18" cy="34" rx="13" ry="5" transform="rotate(-15 18 34)"/><ellipse cx="46" cy="34" rx="13" ry="5" transform="rotate(15 46 34)"/></g><g fill="#d0242b"><circle cx="27" cy="44" r="4"/><circle cx="37" cy="44" r="4"/><circle cx="32" cy="27" r="3.5"/></g>',
+flor:'<g fill="#fff" stroke="#c9d3c4" stroke-width="1.5"><ellipse cx="32" cy="16" rx="7" ry="11"/><ellipse cx="47" cy="28" rx="7" ry="11" transform="rotate(72 47 28)"/><ellipse cx="41" cy="46" rx="7" ry="11" transform="rotate(144 41 46)"/><ellipse cx="23" cy="46" rx="7" ry="11" transform="rotate(216 23 46)"/><ellipse cx="17" cy="28" rx="7" ry="11" transform="rotate(288 17 28)"/></g><circle cx="32" cy="32" r="6" fill="#f6b80f"/>',
+cereza:'<path d="M32 8c0 10-8 16-12 24M32 8c2 10 8 16 12 22" stroke="#2f8a3a" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M32 8c6-4 14-3 18 2-6 3-13 3-18-2z" fill="#4caf50"/><circle cx="20" cy="42" r="12" fill="#d0242b"/><circle cx="44" cy="40" r="12" fill="#d0242b"/><circle cx="16" cy="37" r="3.5" fill="#fff9"/><circle cx="40" cy="35" r="3.5" fill="#fff9"/>',
+sol:'<circle cx="32" cy="22" r="11" fill="#f6b80f"/><g stroke="#f6b80f" stroke-width="3.5" stroke-linecap="round"><path d="M32 3v5M12 22H7M57 22h-5M18 8l3 3M46 8l-3 3"/></g><path d="M6 42h52l-6 14H12z" fill="#8a5a33"/><g fill="#e8c9a0"><ellipse cx="20" cy="46" rx="4" ry="3"/><ellipse cx="31" cy="48" rx="4" ry="3"/><ellipse cx="42" cy="46" rx="4" ry="3"/></g>',
+molino:'<path d="M16 8h32l-6 14H22z" fill="#9a9a9a"/><rect x="24" y="22" width="16" height="22" rx="2" fill="#6d6d6d"/><circle cx="50" cy="32" r="6" fill="none" stroke="#6d6d6d" stroke-width="4"/><path d="M18 50h28l-4 10H22z" fill="#6b3f22"/>',
+taza:'<path d="M10 26h36v13a15 15 0 0 1-15 15h-6A15 15 0 0 1 10 39z" fill="#fff" stroke="#8a5a33" stroke-width="3.5"/><path d="M46 30h4a6 6 0 0 1 0 12h-5" stroke="#8a5a33" stroke-width="3.5" fill="none"/><ellipse cx="28" cy="29" rx="15" ry="3" fill="#6b3f22"/><path d="M22 6c-3 4 3 7 0 13M33 6c-3 4 3 7 0 13" stroke="#b9a48c" stroke-width="3" fill="none" stroke-linecap="round"/>',
+abuelo:'<path d="M8 27c3-12 45-12 48 0z" fill="#efe6d2" stroke="#8a5a33" stroke-width="2"/><rect x="18" y="20" width="28" height="4" fill="#22261f"/><circle cx="32" cy="40" r="13" fill="#f0c49d"/><path d="M22 46c3 9 17 9 20 0z" fill="#fff"/><circle cx="27" cy="38" r="1.8" fill="#22261f"/><circle cx="37" cy="38" r="1.8" fill="#22261f"/>',
+pregunta:'<circle cx="32" cy="32" r="25" fill="#1f6fd1"/><path d="M24 25a8 8 0 1 1 12 7c-3 2-4 3-4 7" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="32" cy="47" r="3.5" fill="#fff"/>',
+sorpresa:'<path d="M32 5l7.5 16 17.5 2-13 12 3.5 17.5L32 44l-15.5 8.5L20 35 7 23l17.5-2z" fill="#7b5ce0" stroke="#5a3fbf" stroke-width="2" stroke-linejoin="round"/><circle cx="27" cy="27" r="2.5" fill="#fff"/><circle cx="37" cy="27" r="2.5" fill="#fff"/><path d="M27 34q5 4 10 0" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>',
+abeja:'<ellipse cx="22" cy="20" rx="10" ry="7" fill="#e8f6ff" stroke="#9ab" transform="rotate(-25 22 20)"/><ellipse cx="40" cy="18" rx="10" ry="7" fill="#e8f6ff" stroke="#9ab" transform="rotate(25 40 18)"/><ellipse cx="33" cy="38" rx="17" ry="13" fill="#f6b80f"/><path d="M27 26v24M35 25v26M43 28v20" stroke="#22261f" stroke-width="5"/><circle cx="16" cy="37" r="8" fill="#22261f"/><circle cx="14" cy="35" r="2" fill="#fff"/>',
+finca:'<path d="M5 30L32 9l27 21z" fill="#d0242b"/><rect x="11" y="30" width="42" height="26" fill="#fff" stroke="#8a5a33" stroke-width="2"/><rect x="11" y="40" width="42" height="4" fill="#1f6fd1"/><rect x="16" y="32" width="8" height="7" fill="#2f8a3a"/><rect x="40" y="32" width="8" height="7" fill="#2f8a3a"/><rect x="28" y="44" width="8" height="12" fill="#8a5a33"/><g fill="#ff5c8a"><circle cx="16" cy="45" r="2.2"/><circle cx="21" cy="45" r="2.2"/><circle cx="43" cy="45" r="2.2"/><circle cx="48" cy="45" r="2.2"/></g>',
+despulpar:'<path d="M14 10h30l-6 12H20z" fill="#9a9a9a"/><circle cx="29" cy="34" r="12" fill="#6d6d6d"/><circle cx="29" cy="34" r="4" fill="#cfcfcf"/><path d="M41 34h10v-8" stroke="#6d6d6d" stroke-width="4" fill="none"/><g fill="#d0242b"><circle cx="24" cy="12" r="4.5"/><circle cx="33" cy="9" r="4.5"/></g><rect x="19" y="47" width="20" height="11" rx="2" fill="#e8c9a0"/>',
+trillar:'<g fill="#c9a074" stroke="#8a5a33" stroke-width="2"><ellipse cx="20" cy="40" rx="9" ry="12" transform="rotate(-20 20 40)"/><ellipse cx="40" cy="42" rx="9" ry="12" transform="rotate(25 40 42)"/><ellipse cx="30" cy="20" rx="9" ry="12"/></g><g stroke="#8a5a33" stroke-width="2" fill="none"><path d="M17 31c5 5 0 14 6 18M30 9c-3 6 3 16-1 22M43 32c-5 5 1 13-5 19"/></g>',
+costal:'<path d="M18 16c-6 10-8 30-4 40h36c4-10 2-30-4-40z" fill="#e3c99a" stroke="#8a5a33" stroke-width="2"/><path d="M18 16q14-8 28 0" stroke="#8a5a33" stroke-width="4" fill="none"/><text x="32" y="44" text-anchor="middle" font-size="11" font-weight="900" fill="#2f8a3a" font-family="Nunito,sans-serif">CAFÉ</text>',
+jeep:'<rect x="12" y="12" width="34" height="7" rx="2" fill="#e3c99a" stroke="#8a5a33"/><path d="M14 30l6-11h22l6 11z" fill="#d0242b"/><rect x="23" y="21" width="16" height="8" fill="#bfe6fa"/><rect x="6" y="30" width="52" height="15" rx="4" fill="#d0242b"/><rect x="50" y="33" width="8" height="5" fill="#f6b80f"/><circle cx="18" cy="47" r="7.5" fill="#22261f"/><circle cx="46" cy="47" r="7.5" fill="#22261f"/><circle cx="18" cy="47" r="3" fill="#ccc"/><circle cx="46" cy="47" r="3" fill="#ccc"/>',
+arepa:'<ellipse cx="32" cy="40" rx="25" ry="13" fill="#2f8a3a"/><ellipse cx="32" cy="33" rx="20" ry="13" fill="#f3cf6a" stroke="#c9952b" stroke-width="2"/><g fill="#c9952b"><circle cx="24" cy="31" r="2"/><circle cx="36" cy="28" r="2"/><circle cx="41" cy="36" r="2"/><circle cx="28" cy="38" r="2"/></g>',
+canasto:'<path d="M10 28h44l-6 26H16z" fill="#c9954f" stroke="#8a5a33" stroke-width="2"/><path d="M14 36h36M15 44h34M22 28l-2 26M32 28v26M42 28l2 26" stroke="#8a5a33" stroke-width="2"/><path d="M16 28c0-17 32-17 32 0" stroke="#8a5a33" stroke-width="4" fill="none"/>',
+festival:'<g fill="#d0242b"><circle cx="32" cy="18" r="9"/><circle cx="45" cy="28" r="9"/><circle cx="40" cy="43" r="9"/><circle cx="24" cy="43" r="9"/><circle cx="19" cy="28" r="9"/></g><circle cx="32" cy="31" r="7" fill="#f6b80f"/><rect x="5" y="8" width="6" height="6" fill="#1f6fd1" transform="rotate(20 8 11)"/><rect x="52" y="50" width="6" height="6" fill="#1f6fd1"/><rect x="53" y="8" width="6" height="6" fill="#2f8a3a" transform="rotate(-20 56 11)"/>',
+sombrero:'<ellipse cx="32" cy="42" rx="28" ry="9" fill="#efe6d2" stroke="#8a5a33" stroke-width="2"/><path d="M18 42c0-17 4-24 14-24s14 7 14 24z" fill="#efe6d2" stroke="#8a5a33" stroke-width="2"/><rect x="18" y="33" width="28" height="5" fill="#22261f"/>',
+gente:'<circle cx="21" cy="19" r="8" fill="#b8784c"/><circle cx="43" cy="19" r="8" fill="#b8784c"/><path d="M6 54c0-13 6-21 15-21s15 8 15 21z" fill="#2f8a3a"/><path d="M28 54c0-13 6-21 15-21s15 8 15 21z" fill="#1f6fd1"/><path d="M13 11q8-6 16 0M35 11q8-6 16 0" stroke="#efe6d2" stroke-width="4" fill="none"/>',
+pcc:'<circle cx="32" cy="32" r="25" fill="#fff" stroke="#8a5a33" stroke-width="4"/><path d="M32 10l6 22h-12z" fill="#d0242b"/><path d="M26 32h12l-6 22z" fill="#1f6fd1"/><circle cx="32" cy="32" r="3.5" fill="#22261f"/>',
+patrimonio:'<path d="M32 4v9M28 8h8" stroke="#8a5a33" stroke-width="3"/><path d="M20 26l12-12 12 12z" fill="#d0242b"/><rect x="22" y="26" width="20" height="30" fill="#fff" stroke="#8a5a33" stroke-width="2"/><path d="M5 40l11-9 11 9zM37 40l11-9 11 9z" fill="#d0242b"/><rect x="7" y="40" width="17" height="16" fill="#fff" stroke="#8a5a33" stroke-width="2"/><rect x="40" y="40" width="17" height="16" fill="#fff" stroke="#8a5a33" stroke-width="2"/><path d="M28 56V46a4 4 0 0 1 8 0v10z" fill="#8a5a33"/>',
+gota:'<path d="M32 5C24 20 13 30 13 41a19 19 0 0 0 38 0C51 30 40 20 32 5z" fill="#3aa0e8"/><ellipse cx="25" cy="41" rx="4" ry="7" fill="#fff9"/>',
+pajaro:'<ellipse cx="30" cy="37" rx="18" ry="13" fill="#1f6fd1"/><circle cx="44" cy="26" r="10" fill="#1f6fd1"/><path d="M53 25l9 3-9 4z" fill="#f6b80f"/><circle cx="46" cy="24" r="2.5" fill="#fff"/><path d="M14 35L2 28l5 13z" fill="#0b3a82"/><path d="M20 36q9 10 19 1" fill="#7fc2ff"/><path d="M27 49l-2 8M34 49l2 8" stroke="#f6b80f" stroke-width="3"/>',
+reciclaje:'<circle cx="32" cy="32" r="21" fill="none" stroke="#2f8a3a" stroke-width="7" stroke-dasharray="36 8"/><path d="M50 13l3 15-14-3z" fill="#2f8a3a"/><path d="M14 51l-3-15 14 3z" fill="#2f8a3a"/><path d="M32 22c9 0 11 9 0 18-11-9-9-18 0-18z" fill="#4caf50"/>',
+suelo:'<rect x="4" y="38" width="56" height="20" rx="4" fill="#8a5a33"/><g fill="#5e3a1e"><circle cx="14" cy="48" r="2"/><circle cx="30" cy="52" r="2"/><circle cx="46" cy="46" r="2"/></g><path d="M30 38V20" stroke="#2f8a3a" stroke-width="4"/><path d="M30 26c-8 0-12-6-12-12 8 0 12 5 12 12zM30 24c7 0 11-5 11-11-7 0-11 4-11 11z" fill="#4caf50"/><path d="M52 6l-8 24" stroke="#9a9a9a" stroke-width="4" stroke-linecap="round"/>',
+tip:'<path d="M32 6a17 17 0 0 0-10 31v7h20v-7A17 17 0 0 0 32 6z" fill="#f6b80f"/><path d="M26 30l6-8 6 8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="23" y="47" width="18" height="7" rx="3" fill="#6d6d6d"/>'
+};
+const ICON_IMG={semilla:'img/iconos/semilla.webp',brote:'img/iconos/brote.webp',planta:'img/iconos/planta.webp',flor:'img/iconos/flor.webp',abeja:'img/iconos/abeja.webp',cereza:'img/iconos/cereza.webp',abuelo:'img/iconos/abuelo.webp',pregunta:'img/iconos/pregunta.webp',sorpresa:'img/iconos/sorpresa.webp',tip:'img/iconos/tip.webp',finca:'img/iconos/finca.webp',despulpar:'img/iconos/despulpar.webp',sol:'img/iconos/sol.webp',trillar:'img/iconos/trillar.webp',molino:'img/iconos/molino.webp',costal:'img/iconos/costal.webp',jeep:'img/iconos/jeep.webp',taza:'img/iconos/taza.webp',arepa:'img/iconos/arepa.webp',canasto:'img/iconos/canasto.webp',festival:'img/iconos/festival.webp',sombrero:'img/iconos/sombrero.webp',gente:'img/iconos/gente.webp',pcc:'img/iconos/pcc.webp',patrimonio:'img/iconos/patrimonio.webp',suelo:'img/iconos/suelo.webp',gota:'img/iconos/gota.webp',pajaro:'img/iconos/pajaro.webp',reciclaje:'img/iconos/reciclaje.webp'};/* para usar imágenes propias: ICON_IMG.abeja='img/iconos/abeja.png' */
+const icon=k=>ICON_IMG[k]?`<img class="ii" src="${ICON_IMG[k]}" alt="">`:`<svg viewBox="0 0 64 64" aria-hidden="true">${IC[k]}</svg>`;
+const BEAN='<svg class="bean" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="8" ry="10.5" fill="#6b3f22" transform="rotate(25 12 12)"/><path d="M9 4c4 4 2 12 6 16" stroke="#c9a074" stroke-width="2" fill="none"/></svg>';
+
+const KC={etapa:'#a8dd7c',abuelo:'#ffcf5c',sorpresa:'#c8b8ff',pregunta:'#9fcbff',tip:'#8de3c6',pcc:'#ffb98a',amb:'#d6e98a',salida:'#7cc04e',finca:'#ff9e8f',taza:'#f6b80f',pccc:'#ffa86b'};
+const TIPS=[
+{f:'tip-nina-traje-1',b:15,t:'Una investigadora con traje típico nos comparte su tip desde el cafetal.'},
+{f:'tip-nino-sombrero',b:15,t:'Con sombrero y ruana, un investigador nos cuenta lo que aprendió del café.'},
+{f:'preventin-arriero',b:21,t:'Preventín arriero y su mula llevan el café de la finca. ¡Así se hacía antes!'},
+{f:'tip-cafetal-nina',b:23,t:'Una investigadora de primero nos cuenta lo que descubrió desde el cafetal.'},
+{f:'tip-nina-traje-2',b:15,t:'Otra investigadora nos regala su tip cafetero.'},
+{f:'tip-ruana',b:20,t:'Junto a la mata de café, un investigador nos comparte su tip.'},
+{f:'tip-semilla',b:24,t:'Un investigador nos muestra cómo empieza la mata: de la semilla a la matica.'},
+{f:'tip-cafetal-nino',b:9,t:'Un investigador nos habla desde el cafetal.'}
+];
+const ABUELOS=[
+{f:'abuelo-variedades',a:12,b:40,q:['¿Cuál es una variedad de café que nombró el familiar?','Castillo','Mango','Guayaba'],t:'Un familiar que trabajó en finca cafetera nos cuenta las variedades que conoce: arábigo, borbón, caturro, pajarito, Colombia y Castillo.'},
+{f:'abuelo-variedades',a:68,b:93,q:['¿En qué llevaban los abuelos el café hasta la casa?','En mulas','En avión','En bicicleta'],t:'Antes, los abuelos podaban con segueta, recogían el café en cocos y canastos amarrados a la cintura y lo llevaban en mulas hasta la casa.'},
+{f:'abuelo-1',a:0,b:22,t:'Un investigador de primero, micrófono en mano, entrevista a su abuelo sobre cómo se trabajaba el café.'},
+{f:'abuelo-2',a:0,b:22,t:'El abuelo sigue contando sus recuerdos del trabajo en el café.'},
+{f:'abuelo-3',a:0,b:22,t:'El abuelo responde más preguntas del investigador.'},
+{f:'entrevista-papa',a:0,b:25,t:'Una investigadora entrevista a su papá sobre el café.'},
+{f:'entrevista-familia',a:0,b:25,t:'Con traje típico, una investigadora entrevista a su familia.'},
+{f:'entrevista-mesa',a:0,b:25,t:'Un familiar responde las preguntas de la investigación.'}
+];
+const SORP={n:'Sorpresa',k:'sorpresa',i:'sorpresa'},PREG={n:'Pregunta',s:'del cafetal',k:'pregunta',i:'pregunta'},TIP={n:'Tip del',s:'investigador',k:'tip',i:'tip',g:2},ABU={n:'La voz',s:'del abuelo',k:'abuelo',i:'abuelo',g:3};
+const CELLS=[
+{n:'Inicio',s:'Semillero',k:'salida',i:'semilla',g:2,m:{img:'img/huerta-3.jpg'},t:'Aquí empieza el camino: en el semillero ponemos la semilla en tierra blanda y la cuidamos hasta que brota. Cada vez que pasas por el Inicio ganas 2 granos.'},
+{n:'Sembrar',q:['¿Qué necesita la matica para crecer?','Tierra, agua y sol','Solo gaseosa','Estar en la oscuridad'],k:'etapa',i:'brote',g:2,m:{img:'img/huerta-1.jpg'},t:'En la huerta escolar sembramos con nuestras propias manos. La matica necesita tierra buena, agua y sol.'},
+SORP,
+{n:'Crecer',q:['¿Cuál de estas es una parte de la mata de café?','La raíz','La rueda','La ventana'],k:'etapa',i:'planta',g:2,m:{img:'img/dib-partes-planta.jpg'},t:'La mata de café tiene raíz, tallo, hojas, flores y frutos. Así la dibujamos en el cuaderno.'},
+TIP,
+{n:'Florecer',q:['¿De qué color son las flores del café?','Blancas','Negras','Azules'],k:'etapa',i:'flor',g:2,m:{img:'img/dib-ciclo-cafe.jpg'},t:'La mata de café da flores blancas y olorosas. De cada flor nace una cereza: primero verde, luego amarilla y al final roja.'},
+{n:'Polinizar',q:['¿Qué insecto visita las flores del café?','La abeja','El caracol','El pez'],k:'amb',i:'abeja',g:2,t:'Las abejas y otros insectos visitan las flores del café. Así ayudan a que la mata dé más cerezas.'},
+PREG,
+{n:'Cosecha',q:['¿Cuándo se recogen las cerezas de café?','Cuando están rojas y maduras','Cuando están verdes','Cuando se caen al suelo'],s:'¡a recoger!',k:'etapa',i:'cereza',g:3,m:{vid:'v/cosecha.mp4',a:0,b:9},t:'Las cerezas se recogen a mano, una por una, cuando están rojas y maduras. Así lo hacían las chapoleras.'},
+ABU,
+{n:'Visita',q:['¿Qué encontramos en una finca cafetera?','Cafetal, casa y árboles de sombra','Edificios y ascensores','Playa y arena'],s:'la finca',k:'finca',i:'finca',g:3,m:{img:'img/maqueta-finca.jpg'},t:'En la finca cafetera vive la familia caficultora: casa de balcones de colores, cafetal, plátano y árboles de sombra. ¡Así la construimos en maqueta!'},
+{n:'Despulpar',q:['¿Qué le quita la despulpadora a la cereza?','La cáscara roja','Las hojas','La raíz'],k:'etapa',i:'despulpar',g:2,m:{vid:'v/finca-el-ocaso.mp4',a:290,b:312},t:'La despulpadora le quita la cáscara roja a la cereza y deja el grano listo para lavar.'},
+{n:'Secar',q:['¿Para qué sirve el secador solar de túnel?','Para proteger el café de la lluvia','Para mojar el café','Para guardar juguetes'],k:'etapa',i:'sol',g:2,m:{img:'img/maqueta-secado.jpg'},t:'El grano se seca al sol. El secador solar de túnel lo protege de la lluvia y el caficultor lo revuelve con el rastrillo.'},
+SORP,
+{n:'Trillar',q:['¿Qué pierde el grano seco al trillarlo?','Su cascarita','Su color rojo','Sus hojas'],k:'etapa',i:'trillar',g:2,m:{vid:'v/finca-el-ocaso.mp4',a:335,b:356},t:'Al trillar, el grano seco pierde su cascarita. En la finca conocimos el pergamino, la almendra, el cisco y la pasilla.'},
+TIP,
+{n:'Tostar',q:['¿Dónde se muele el café tostado?','En el molino','En la nevera','En la lavadora'],s:'y moler',k:'etapa',i:'molino',g:2,m:{vid:'v/finca-el-ocaso.mp4',a:530,b:552},t:'La almendra se tuesta hasta quedar oscura y olorosa, y luego se muele en el molino.'},
+PREG,
+{n:'Empacar',q:['¿En qué se empaca el café seco?','En costales','En bolsas de agua','En cajas de juguetes'],k:'etapa',i:'costal',g:2,t:'El café seco se empaca en costales para que no se dañe con la humedad y pueda viajar lejos.'},
+{n:'Transportar',q:['¿Qué carro de nuestra región lleva el café por las montañas?','El jeep Willys','Un barco','Un tren bala'],k:'etapa',i:'jeep',g:2,m:{img:'img/escena-finca.jpg'},t:'Antes, las mulas cargaban el café por las lomas, como la de Preventín arriero. Hoy también lo lleva el jeep Willys, el carro de nuestra región.'},
+{n:'La taza',q:['¿Con qué se cuela el café molido?','Con agua caliente','Con jugo de naranja','Con leche fría'],s:'¡llegaste!',k:'taza',i:'taza',g:5,m:{vid:'v/finca-el-ocaso.mp4',a:588,b:612},t:'¡Llegaste a la taza! El café molido se cuela con agua caliente. Todo el camino, desde la semilla, termina aquí.'},
+ABU,
+SORP,
+{n:'Gastronomía',q:['¿Cuál es una comida típica de nuestra región?','La arepa','El sushi','La hamburguesa de pulpo'],k:'pcc',i:'arepa',g:2,t:'En nuestra región se comen arepas, fríjoles y sancocho, y se toma tinto o café con leche.'},
+PREG,
+{n:'Artesanías',q:['¿Qué tejían los artesanos para recoger el café?','Canastos','Celulares','Zapatos'],k:'pcc',i:'canasto',g:2,t:'Con fibras naturales se tejen canastos, como los que usaban los abuelos para recoger el café, y también sombreros y carrieles.'},
+TIP,
+{n:'Festivales',q:['¿En qué municipio del Quindío se celebra el Reinado Nacional del Café?','Calarcá','Cartagena','Leticia'],k:'pcc',i:'festival',g:2,t:'En Calarcá, Quindío, se celebra el Reinado Nacional del Café con desfiles, música y comparsas.'},
+{n:'Cultura',q:['¿Cuál es una prenda de nuestra tradición cafetera?','La ruana','El traje de astronauta','El disfraz de pirata'],s:'y tradición',k:'pcc',i:'sombrero',g:2,m:{img:'img/poster-tip-nina-traje-1.jpg'},t:'La ruana, el sombrero, el carriel y el traje de chapolera son parte de nuestra tradición cafetera.'},
+{n:'Asociación',q:['¿Para qué se unen los caficultores?','Para trabajar juntos','Para pelear','Para dormir'],s:'de caficultores',k:'pcc',i:'gente',g:2,t:'Los caficultores se unen para trabajar juntos. La Federación Nacional de Cafeteros, creada en 1927, los ayuda a cultivar y vender su café.'},
+{n:'Recorre',q:['¿Cómo se llama el paisaje donde vivimos?','Paisaje Cultural Cafetero','Paisaje del desierto','Paisaje de la nieve'],s:'el PCC',k:'pccc',i:'pcc',g:3,m:{img:'img/dib-paisaje-cultural.jpg'},t:'Vivimos en el Paisaje Cultural Cafetero. En 2011 la UNESCO lo declaró Patrimonio de la Humanidad por sus montañas, sus fincas y su gente.'},
+{n:'Proteger',q:['¿Qué es proteger el patrimonio?','Cuidar nuestras casas, tradiciones y paisajes','Botar basura en la calle','Tumbar las casas viejas'],s:'el patrimonio',k:'pcc',i:'patrimonio',g:2,m:{img:'img/dib-paisaje-cafetero.jpg'},t:'Cuidar las casas de bahareque, las tradiciones y los paisajes es proteger lo que nos hace únicos.'},
+SORP,
+{n:'Cuidar',q:['¿Qué ayuda a cuidar el suelo?','Sembrar árboles de sombra','Quemar la tierra','Echarle basura'],s:'el suelo',k:'amb',i:'suelo',g:2,m:{img:'img/huerta-4.jpg'},t:'Sembrar árboles de sombra y no quemar la tierra la mantiene viva y fuerte para la mata de café.'},
+TIP,
+{n:'Conservar',q:['¿Cómo cuidamos las quebradas?','No botando basura al agua','Echándoles jabón','Secándolas'],s:'el agua',k:'amb',i:'gota',g:2,m:{img:'img/dib-paisaje-1.jpg'},t:'Las quebradas riegan los cafetales. Por eso no botamos basura al agua y cuidamos los árboles de sus orillas.'},
+PREG,
+{n:'Biodiversidad',q:['¿Quiénes viven en los cafetales?','Aves, mariposas e insectos','Pingüinos','Tiburones'],k:'amb',i:'pajaro',g:2,m:{img:'img/dib-paisaje-2.jpg'},t:'En los cafetales viven aves, mariposas, insectos y muchas plantas. Los árboles de sombra son su casa.'},
+ABU,
+{n:'Sostenibilidad',q:['¿En qué se convierte la pulpa del café?','En abono para la huerta','En plástico','En dulces'],k:'amb',i:'reciclaje',g:2,t:'La pulpa del café no se bota: se convierte en abono para la huerta. ¡Así cuidamos el planeta!'}
+];
+const POS=[];for(let i=0;i<40;i++){if(i<=10)POS.push([0,i]);else if(i<=20)POS.push([i-10,10]);else if(i<=30)POS.push([10,30-i]);else POS.push([40-i,0])}
+const SIDE=i=>i%10===0?'':i<10?'':i<20?' v r':i<30?' b':' v';
+const CARDS=[
+{t:'¡Llovió en la finca! Las matas recibieron agua.',g:2},
+{t:'Encontraste un racimo de cerezas rojas y maduras.',g:3},
+{t:'Sembraste plátano junto al café para darle sombra.',g:2},
+{t:'Le hiciste una buena pregunta al abuelo.',g:1},
+{t:'Llegó la broca, un insecto pequeño que daña los granos.',g:-1},
+{t:'Dejaste el café secando sin tapar y le cayó un aguacero.',g:-1},
+{t:'Salió un sol radiante y el café se secó rápido. Avanza 2 casillas.',mv:2},
+{t:'La mula se cansó en la loma. Retrocede 1 casilla.',mv:-1},
+{t:'El jeep se varó en la carretera. Retrocede 2 casillas.',mv:-2},
+{t:'Usaste la pulpa del café como abono para la huerta.',g:2},
+{t:'Cuidaste la quebrada y no botaste basura al agua.',g:2},
+{t:'Una chapolera te enseñó a recoger solo las cerezas rojas.',g:3},
+{t:'Cosechaste cerezas verdes antes de tiempo.',g:-1},
+{t:'¡Llegó el Reinado del Café! Bailas y avanzas 3 casillas.',mv:3}
+];
+const QS=[
+{q:'¿De qué color está la cereza de café cuando está madura?',o:['Roja','Azul','Blanca'],c:0},
+{q:'¿Qué parte de la planta está debajo de la tierra?',o:['La flor','La raíz','La hoja'],c:1},
+{q:'¿Qué necesita la mata de café para crecer?',o:['Dulces y gaseosa','Tierra, agua y sol','Nada'],c:1},
+{q:'¿En qué llevaban los abuelos el café hasta la casa?',o:['En avión','En bicicleta','En mulas'],c:2},
+{q:'¿Con qué recogían los abuelos las cerezas?',o:['Con cocos y canastos','Con una cuchara','Con un paraguas'],c:0},
+{q:'¿Qué nace de la flor del café?',o:['Una piedra','Una cereza','Un pájaro'],c:1},
+{q:'¿Para qué se seca el café al sol?',o:['Para que no se dañe y se pueda guardar','Para que crezca más','Para pintarlo'],c:0},
+{q:'¿Cuál de estas es una variedad de café que nombró el abuelo?',o:['Mango','Castillo','Guayaba'],c:1},
+{q:'¿Dónde observamos la planta de café en el colegio?',o:['En la huerta escolar','En el baño','En el bus'],c:0},
+{q:'¿Qué carro de nuestra región lleva el café por las montañas?',o:['Un barco','El jeep Willys','Un avión'],c:1},
+{q:'¿Qué hacen las abejas en las flores del café?',o:['Las pintan','Ayudan a polinizarlas','Se las llevan'],c:1},
+{q:'¿Qué se puede hacer con la pulpa del café?',o:['Abono para la huerta','Juguetes','Zapatos'],c:0},
+{q:'¿Quiénes eran las chapoleras?',o:['Las mujeres que recogían el café','Unas mariposas de colores','Unas profesoras'],c:0},
+{q:'¿Cómo se llama el paisaje donde vivimos?',o:['Paisaje Cultural Cafetero','Paisaje del desierto','Paisaje de la nieve'],c:0},
+{q:'¿Qué animal ayudaba a cargar el café en las lomas?',o:['El pez','La mula','El gato'],c:1}
+];
+const CHARS=[
+{id:'pv',n:'Preventín',d:'el explorador',img:'img/ficha-preventin.webp',c:'#1f6fd1'},
+{id:'ar',n:'Preventín arriero',d:'el caficultor',img:'img/ficha-arriero.png',c:'#d0242b'},
+{id:'mu',n:'La mula',d:'la cargadora',img:'img/ficha-mula.png',c:'#2f8a3a'},
+{id:'ch',n:'La chapolera',d:'la recolectora',img:'img/ficha-chapolera.png',c:'#c2185b'}
+];
+const av=(p,cls='')=>`<span class="av ${cls}" style="--c:${p.c}"><img src="${p.img}" alt=""></span>`;
+
+let sel=new Set(['pv','ar','mu','ch']),goal=20,teams=[],turn=0,busy=false,qBag=[],cBag=[],tBag=[],aBag=[];
+const pick=(bag,src)=>{if(!bag.length)bag.push(...src.map((_,i)=>i).sort(()=>Math.random()-.5));return src[bag.pop()]};
+
+$('#chars').innerHTML=CHARS.map(p=>`<button class="char" style="--c:${p.c}" data-id="${p.id}" aria-pressed="true"><span class="ck">✓</span>${av(p)}<b>${esc(p.n)}</b><small>${esc(p.d)}</small></button>`).join('');
+$('#chars').onclick=e=>{const b=e.target.closest('.char');if(!b)return;const id=b.dataset.id;sel.has(id)?sel.delete(id):sel.add(id);b.setAttribute('aria-pressed',sel.has(id));$('#err').textContent=''};
+$('#goal').innerHTML=[15,20,30].map(v=>`<button aria-pressed="${v===goal}" data-v="${v}">${v} granos</button>`).join('');
+$('#goal').onclick=e=>{const b=e.target.closest('button');if(!b)return;goal=+b.dataset.v;$('#goal').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b))};
+
+const pip={1:[[32,32]],2:[[19,19],[45,45]],3:[[18,18],[32,32],[46,46]],4:[[19,19],[45,19],[19,45],[45,45]],5:[[18,18],[46,18],[32,32],[18,46],[46,46]],6:[[19,16],[45,16],[19,32],[45,32],[19,48],[45,48]]};
+const die=v=>`<svg viewBox="0 0 64 64">${pip[v].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="6.5" fill="${v===1?'#d0242b':'#22261f'}"/>`).join('')}</svg>`;
+
+function buildBoard(){
+ let h='';
+ CELLS.forEach((c,i)=>{const [r,co]=POS[i];
+  h+=`<div class="cell${i%10===0?' corner':''}${SIDE(i)}" style="grid-area:${r+1}/${co+1};--k:${KC[c.k]}" id="c${i}">${icon(c.i)}<span class="full">${esc(c.n)}${c.s?`<br>${esc(c.s)}`:''}</span><span class="sh">${esc(c.sh||c.n)}</span><div class="toks"></div></div>`});
+ h+=`<div class="center"><div class="ctop"><img class="clogo" src="img/logo.webp" alt="El camino del café"><div class="cside"><div class="cmid"><div class="turn" id="turn"></div><button class="dice" id="dice" aria-label="Tirar el dado">${die(5)}</button></div><div class="hint" id="hint">Toca el dado para avanzar</div><div class="sacks" id="sacks"></div></div></div></div>`;
+ $('#board').innerHTML=h;$('#dice').onclick=roll;
+}
+function render(){
+ document.querySelectorAll('.toks').forEach(t=>t.innerHTML='');
+ document.querySelectorAll('.cell.here').forEach(c=>c.classList.remove('here'));
+ const by={};teams.forEach((t,i)=>(by[t.pos]=by[t.pos]||[]).push(i));
+ Object.entries(by).forEach(([pos,ids])=>{$('#c'+pos+' .toks').innerHTML=ids.map((i,k)=>`<span class="tok ${ids.length===1?'solo':'t'+k}${i===turn?' me':''}">${av(teams[i])}</span>`).join('')});
+ const t=teams[turn];$('#c'+t.pos).classList.add('here');
+ $('#turn').innerHTML=`${av(t)}<span>Turno de<br>${esc(t.n)}</span>`;
+ $('#sacks').innerHTML=teams.map(p=>`<div class="sack" style="--c:${p.c}">${av(p)}<div class="bar"><i style="width:${Math.min(100,p.g/goal*100)}%"></i></div><span>${p.g}/${goal}</span></div>`).join('');
+}
+function start(){
+ if(sel.size<2){$('#err').textContent='Elijan al menos 2 personajes para jugar.';return}
+ teams=CHARS.filter(p=>sel.has(p.id)).map(p=>({...p,pos:0,g:0}));turn=0;busy=false;
+ $('#setup').hidden=true;$('#game').hidden=false;buildBoard();render();$('#board').scrollIntoView({block:'nearest'});
+}
+$('#start').onclick=start;
+$('#restart').onclick=()=>{$('#game').hidden=true;$('#setup').hidden=false};
+
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function roll(){
+ if(busy)return;busy=true;const d=$('#dice');d.classList.add('roll');
+ let v=1;for(let k=0;k<7;k++){v=1+Math.floor(Math.random()*6);d.innerHTML=die(v);await wait(75)}
+ d.classList.remove('roll');$('#hint').textContent=`¡Salió ${v}!`;await wait(250);await move(v);openCell();
+}
+async function move(steps){
+ const t=teams[turn],dir=steps<0?-1:1;
+ for(let k=0;k<Math.abs(steps);k++){t.pos=(t.pos+dir+40)%40;if(dir>0&&t.pos===0)t.g+=2;render();await wait(280)}
+}
+const modal=$('#modal'),box=$('#box');let vid=null;
+function media(m){
+ if(!m)return'';
+ if(m.ic)return`<div class="media icon" style="--k:${KC[m.ic.k]}">${icon(m.ic.i)}</div>`;
+ if(m.img)return`<div class="media"><img src="${m.img}" alt=""></div>`;
+ return`<div class="media"><video id="mv" src="${m.vid}" controls playsinline preload="auto" data-a="${m.a||0}" data-b="${m.b||''}"></video></div>`;
+}
+function hookVideo(){
+ vid=box.querySelector('#mv');if(!vid)return;const a=+vid.dataset.a,b=+vid.dataset.b;
+ vid.addEventListener('loadedmetadata',()=>{if(a)vid.currentTime=a;const p=vid.play();if(p)p.catch(()=>{})},{once:true});
+ if(b)vid.addEventListener('timeupdate',()=>{if(vid.currentTime>=b)vid.pause()});
+}
+function speak(txt){try{const s=speechSynthesis;s.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang='es-CO';u.rate=.95;s.speak(u)}catch(e){}}
+function show(html){box.innerHTML=html;modal.classList.add('on');hookVideo();const f=box.querySelector('.ok,button');if(f)f.focus({preventScroll:true})}
+function close(){if(vid){vid.pause();vid=null}try{speechSynthesis.cancel()}catch(e){}modal.classList.remove('on');box.innerHTML=''}
+const head=(c,sub,p)=>`<div class="mh" style="--k:${KC[c.k]}">${icon(c.i)}<div><small>${esc(sub)}</small><h2 id="mTitle">${esc(c.n)}${c.s?' '+esc(c.s):''}</h2></div>${p?av(p):''}</div>`;
+const sayBtn=txt=>`<button class="ghost" data-say="${esc(txt)}">Escuchar</button>`;
+box.addEventListener('click',e=>{const s=e.target.closest('[data-say]');if(s)speak(s.dataset.say)});
+
+function openCell(){
+ const t=teams[turn],c=CELLS[t.pos];
+ if(c.k==='sorpresa'){const card=pick(cBag,CARDS);const bad=card.g<0||card.mv<0;
+  const res=card.mv?(card.mv>0?'Avanzas '+card.mv+' casillas':'Retrocedes '+(-card.mv)+(card.mv<-1?' casillas':' casilla')):(card.g>0?'+'+card.g+' granos':card.g+' grano');
+  show(`${head(c,'Tarjeta sorpresa',t)}<div class="mb"><p class="big">${esc(card.t)}</p><div class="prize${bad?' bad':''}">${BEAN}${res}</div><div class="row"><button class="ok" id="nx">Seguir</button>${sayBtn(card.t)}</div></div>`);
+  $('#nx').onclick=async()=>{close();if(card.mv)await move(card.mv);else t.g=Math.max(0,t.g+card.g);next()};return}
+ if(c.k==='pregunta'){const q=pick(qBag,QS);
+  show(`${head(c,'Pregunta del cafetal',t)}<div class="mb"><p class="big">${esc(q.q)}</p><div class="ans">${q.o.map((o,i)=>`<button data-i="${i}">${esc(o)}</button>`).join('')}</div><div class="prize" id="qr" aria-live="polite"></div><div class="row"><button class="ok" id="nx" hidden>Seguir</button>${sayBtn(q.q+'. '+q.o.join(', '))}</div></div>`);
+  let won=0;box.querySelector('.ans').onclick=e=>{const b=e.target.closest('button');if(!b||!$('#nx').hidden)return;const ok=+b.dataset.i===q.c;
+   box.querySelectorAll('.ans button').forEach((x,i)=>{if(i===q.c)x.classList.add('right')});if(!ok)b.classList.add('wrong');
+   won=ok?2:0;$('#qr').innerHTML=ok?BEAN+'¡Muy bien! +2 granos':'Casi. La respuesta es: '+esc(q.o[q.c]);$('#qr').classList.toggle('bad',!ok);$('#nx').hidden=false;$('#nx').focus()};
+  $('#nx').onclick=()=>{close();t.g+=won;next()};return}
+ let m=c.m,txt=c.t,cq=c.q;
+ if(c.k==='tip'){const tp=pick(tBag,TIPS);m={vid:`v/${tp.f}.mp4`,a:0,b:tp.b};txt=tp.t;cq=null}
+ if(c.k==='abuelo'){const ab=pick(aBag,ABUELOS);m={vid:`v/${ab.f}.mp4`,a:ab.a,b:ab.b};txt=ab.t;cq=ab.q}
+ if(!m)m={ic:c};
+ const sub={etapa:'Etapa del café',abuelo:'La voz del abuelo',tip:'Tip del investigador',salida:'Inicio',finca:'Casilla especial',taza:'¡Meta del camino!',pcc:'Paisaje Cultural Cafetero',pccc:'Paisaje Cultural Cafetero',amb:'Cuidamos la naturaleza'}[c.k];
+ if(c.k==='salida'){
+  show(`${head(c,sub,t)}<div class="mb">${media(m)}<p style="font-size:19px">${esc(txt)}</p><div class="prize">${BEAN}+2 granos para ${esc(t.n)}</div><div class="row"><button class="ok" id="nx">Seguir</button>${sayBtn(txt)}</div></div>`);
+  $('#nx').onclick=()=>{close();next()};return}
+ let qq;
+ if(cq){const opts=cq.slice(1).map((o,i)=>({o,ok:i===0})).sort(()=>Math.random()-.5);qq={q:cq[0],o:opts.map(x=>x.o),c:opts.findIndex(x=>x.ok)}}
+ else qq=pick(qBag,QS);
+ show(`${head(c,sub,t)}<div class="mb" id="mb">${media(m)}<p style="font-size:19px">${esc(txt)}</p><p class="ask">Mira con atención: para recoger <b>${c.g} granos</b> hay que responder una pregunta.</p><div class="row"><button class="ok" id="toq">Responder la pregunta</button>${sayBtn(txt)}</div></div>`);
+ $('#toq').onclick=()=>{if(vid){vid.pause();vid=null}
+  $('#mb').innerHTML=`<p class="big">${esc(qq.q)}</p><div class="ans">${qq.o.map((o,i)=>`<button data-i="${i}">${esc(o)}</button>`).join('')}</div><div class="prize" id="qr" aria-live="polite"></div><div class="row"><button class="ok" id="nx" hidden>Seguir</button>${sayBtn(qq.q+'. '+qq.o.join(', '))}</div>`;
+  let won=0;box.querySelector('.ans').onclick=e=>{const b=e.target.closest('button');if(!b||!$('#nx').hidden)return;const ok=+b.dataset.i===qq.c;
+   box.querySelectorAll('.ans button').forEach((x,i)=>{if(i===qq.c)x.classList.add('right')});if(!ok)b.classList.add('wrong');
+   won=ok?c.g:0;$('#qr').innerHTML=ok?BEAN+`¡Muy bien! +${c.g} granos para ${esc(t.n)}`:'Esta vez no recoges granos. La respuesta era: '+esc(qq.o[qq.c]);$('#qr').classList.toggle('bad',!ok);$('#nx').hidden=false;$('#nx').focus()};
+  $('#nx').onclick=()=>{close();t.g+=won;next()};
+  box.querySelector('.ans button').focus()};
+}
+function next(){
+ render();const w=teams.find(t=>t.g>=goal);
+ if(w){const cols=['#d0242b','#f6b80f','#2f8a3a','#1f6fd1','#7b5ce0'];
+  show(`<div class="win">${Array.from({length:22},(_,i)=>`<i class="conf" style="left:${(i*4.6)%100}%;background:${cols[i%5]};animation-delay:${(i%7)*.3}s"></i>`).join('')}${av(w)}<h2 id="mTitle">¡${esc(w.n)} llenó su costal!</h2><p style="margin-inline:auto">Recorrió el camino del café desde la semilla hasta la taza. ¡Felicitaciones a su equipo!</p><div class="row" style="justify-content:center"><button class="ok" id="again">Jugar otra vez</button></div></div>`);
+  $('#again').onclick=()=>{close();start()};busy=false;return}
+ turn=(turn+1)%teams.length;render();$('#hint').textContent='Toca el dado para avanzar';busy=false;
+}
+modal.addEventListener('click',e=>{if(e.target===modal&&!box.querySelector('#nx,#again,#toq'))close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('on')&&!box.querySelector('#nx,#again,#toq'))close()});
+
+/* ---------- investigación ---------- */
+const H=n=>Array.from({length:n},(_,i)=>`img/huerta-${i+1}.jpg`);
+const DIB=[['dib-partes-planta','Partes de la planta'],['dib-ciclo-cafe','Ciclo de vida del café'],['dib-ciclo-planta','Ciclo de vida de la planta'],['dib-germinacion','Germinación'],['dib-relieve','El relieve colombiano'],['dib-paisaje-cafetero','Paisaje cafetero'],['dib-paisaje-cultural','Paisaje cultural'],['dib-paisaje-1','Nuestro paisaje'],['dib-paisaje-2','Nuestro paisaje'],['dib-finca-diferencias','Diferencias en la finca'],['dib-laberinto','Laberinto del caficultor'],['dib-alimentos','Pirámide de alimentos']];
+const V=(f,cap,dur)=>({f,cap,dur});
+const MOMS=[
+{c:'var(--hoja)',n:'Momento 1',h:'Observamos y exploramos nuestro entorno',p:'Recorrimos la huerta escolar para conocer las plantas que viven allí, sobre todo la mata de café. Observamos sus hojas, flores y frutos, tocamos la tierra, sembramos en el semillero y aprendimos que la planta necesita suelo, agua y luz.',img:H(12).map(s=>[s,'En la huerta escolar'])},
+{c:'#c98a00',n:'Momento 2',h:'La voz de nuestros abuelos',p:'Con preguntas preparadas y micrófono en mano, entrevistamos a abuelos, padres y familiares que han trabajado el café. Nos contaron qué variedades conocen, qué herramientas usaban antes y cómo era el proceso en la finca.',vids:[V('abuelo-variedades','Un familiar que trabajó en finca cafetera: variedades y herramientas','1:32'),V('abuelo-1','Entrevista al abuelo · parte 1','0:57'),V('abuelo-2','Entrevista al abuelo · parte 2','0:54'),V('abuelo-3','Entrevista al abuelo · parte 3','1:12'),V('finca-el-ocaso','Emanuel Matallana (1-5): los procesos del café en la finca El Ocaso','10:31'),V('entrevista-papa','Entrevista en familia','1:58'),V('entrevista-familia','Entrevista en familia, con traje típico','2:53'),V('entrevista-mesa','Entrevista a un familiar','0:31')]},
+{c:'#0f8a6a',n:'Momento 3',h:'Registramos nuestros descubrimientos',p:'Dibujamos y coloreamos las partes de la planta, su ciclo de vida y el paisaje cafetero, y grabamos tips en video para contar lo que aprendimos con nuestras propias palabras.',img:DIB.map(([f,c])=>[`img/${f}.jpg`,c]),vids:[V('preventin-arriero','Preventín arriero y su mula','0:21'),V('tip-nina-traje-1','Tip con traje típico','0:15'),V('tip-nino-sombrero','Tip con sombrero y ruana','0:15'),V('tip-nina-traje-2','Tip desde el cafetal','0:15'),V('tip-cafetal-nina','Tip desde el cafetal','0:23'),V('tip-cafetal-nino','Tip desde el cafetal','0:09'),V('tip-ruana','Tip junto a la mata de café','0:20'),V('tip-semilla','Tip: de la semilla a la mata','0:24'),V('cosecha','Recolección en el cafetal','0:22')]},
+{c:'var(--cereza)',n:'Momento 4',h:'Compartimos lo que aprendimos',p:'Construimos maquetas de la finca cafetera y del secado solar, y publicamos nuestra investigación en el periódico digital escolar con la ayuda de Preventín.',img:[['img/maqueta-finca.jpg','Maqueta de la finca cafetera'],['img/maqueta-secado.jpg','Maquetas: secado solar de túnel y secado en patio']],learn:true}
+];
+const LEARN=[
+['La planta','Reconocimos las partes de la mata de café (raíz, tallo, hojas, flores y frutos) y su ciclo de vida, desde la semilla hasta la cereza roja.'],
+['Lo que necesita','Descubrimos que crece con suelo, agua y luz, y que en la huerta y en la finca comparte espacio con el plátano, que le da sombra.'],
+['Las variedades','Los mayores nos nombraron variedades que conocen: arábigo, borbón, caturro, pajarito, Colombia y Castillo.'],
+['Las herramientas de antes','Los abuelos podaban con segueta, recogían en cocos y canastos y llevaban el café en mulas hasta la casa.'],
+['El proceso','Cosecha de cerezas maduras, despulpado, secado, trilla (pasilla, pergamino, cisco y almendra), tostión, molienda y colado.'],
+['Cómo lo contamos','Con dibujos científicos, entrevistas, tips en video, maquetas y este juego del periódico digital.']];
+$('#moms').innerHTML=MOMS.map((m,k)=>`<div class="mom" style="--c:${m.c}" id="m${k+1}"><span class="num">${m.n}</span><h3>${esc(m.h)}</h3><p>${esc(m.p)}</p>
+${m.img?`<div class="gal">${m.img.map(([s,c])=>`<button data-img="${s}" data-cap="${esc(c)}" aria-label="${esc(c)}"><img src="${s}" alt="${esc(c)}" loading="lazy"></button>`).join('')}</div>`:''}
+${m.vids?`<div class="vids"><div class="gal">${m.vids.map(v=>`<button data-vid="v/${v.f}.mp4" data-cap="${esc(v.cap)}" aria-label="Ver video: ${esc(v.cap)}"><img src="img/poster-${v.f}.jpg" alt="" loading="lazy"><span class="play"><i><svg width="22" height="22" viewBox="0 0 22 22"><path d="M6 3v16l13-8z" fill="#0b3a82"/></svg></i></span><figcaption>${esc(v.cap)} · ${v.dur}</figcaption></button>`).join('')}</div></div>`:''}
+${m.learn?`<h3 style="margin-top:14px">Lo que descubrimos</h3><ul class="learn">${LEARN.map(([b,t])=>`<li><b>${b}</b>${esc(t)}</li>`).join('')}</ul>`:''}</div>`).join('');
+$('#moms').addEventListener('click',e=>{const b=e.target.closest('.gal button');if(!b)return;
+ const m=b.dataset.vid?{vid:b.dataset.vid}:{img:b.dataset.img};
+ show(`<div class="mb" style="padding-top:18px"><h2 id="mTitle" style="font-size:24px">${esc(b.dataset.cap)}</h2>${media(m)}<div class="row"><button class="ok" id="cl">Cerrar</button></div></div>`);$('#cl').onclick=close});
+$('#strip').innerHTML=[1,2,3,4,11,12].map(i=>`<img src="img/huerta-${i}.jpg" alt="Niños de primero en la huerta escolar" loading="lazy">`).join('')+['dib-partes-planta','maqueta-finca','maqueta-secado'].map(f=>`<img src="img/${f}.jpg" alt="Trabajo de los estudiantes" loading="lazy">`).join('');
+
+function route(){const h=(location.hash||'#inicio').slice(1);const v=['inicio','jugar','investigacion'].includes(h)?h:'inicio';
+ document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+ document.querySelectorAll('.top nav a').forEach(a=>a.toggleAttribute('aria-current',a.getAttribute('href')==='#'+v));
+ if(modal.classList.contains('on')&&!box.querySelector('#nx,#again,#toq'))close();window.scrollTo(0,0)}
+addEventListener('hashchange',route);route();
+}
+</script>
+</body>
+</html>
