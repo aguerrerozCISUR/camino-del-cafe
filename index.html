@@ -38,7 +38,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--amar);outline-offse
 .frame{position:relative;max-width:1180px;margin:0 auto;aspect-ratio:16/8.4;border-radius:34px;overflow:hidden;
 background:radial-gradient(130% 55% at 0% 100%,#6fb544 60%,transparent 61%),radial-gradient(90% 40% at 30% 100%,#86c556 60%,transparent 61%),linear-gradient(#7cc8ee,#d4effa 75%);
 box-shadow:0 0 0 clamp(8px,1.4vw,16px) #8a5a33,0 0 0 calc(clamp(8px,1.4vw,16px) + 3px) #5e3a1e,0 18px 30px #0003}
-.scene{position:absolute;top:0;right:0;bottom:0;width:66%;background:url(img/escena-finca.jpg) 80% 40%/cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%);mask-image:linear-gradient(90deg,transparent,#000 20%)}
+.scene{position:absolute;top:0;right:0;bottom:0;width:66%;background:url(escena-finca.jpg) 80% 40%/cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%);mask-image:linear-gradient(90deg,transparent,#000 20%)}
 .frame::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(transparent,#1d3b10bb)}
 .frame .logo{position:absolute;left:3%;top:4%;width:min(37%,440px);filter:drop-shadow(0 10px 14px #0004);z-index:1}
 .doors{position:absolute;inset:auto 0 0;z-index:2;display:flex;justify-content:center;gap:clamp(10px,2vw,22px);padding:0 4% 4%;flex-wrap:wrap}
@@ -91,7 +91,7 @@ background:repeating-linear-gradient(100deg,#8a5a33 0 14px,#946339 14px 22px,#81
 .tok.me{animation:hop .9s ease-in-out infinite;z-index:2}
 @keyframes hop{50%{transform:translateY(-12%)}}
 .center{grid-area:2/2/11/11;border-radius:18px;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:clamp(6px,1.4vw,14px);background:radial-gradient(70% 60% at 50% 70%,#bfe4ee,#5d9fca 70%,#4a8fbd);box-shadow:inset 0 0 0 4px #fff8}
-.center::before{content:"";position:absolute;inset:auto 0 0;aspect-ratio:16/9;background:url(img/escena-finca.jpg) center/cover;-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}.center>*{position:relative}.center{justify-content:flex-start!important}.ctop{width:100%;display:grid;grid-template-columns:38% minmax(0,1fr);gap:3%;align-items:start}.ctop .clogo{width:100%;margin:0}.cside{display:flex;flex-direction:column;align-items:center;gap:8px}.cside .sacks{width:100%}@media(max-width:700px){.ctop{grid-template-columns:1fr}.ctop .clogo{display:none}}
+.center::before{content:"";position:absolute;inset:auto 0 0;aspect-ratio:16/9;background:url(escena-finca.jpg) center/cover;-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}.center>*{position:relative}.center{justify-content:flex-start!important}.ctop{width:100%;display:grid;grid-template-columns:38% minmax(0,1fr);gap:3%;align-items:start}.ctop .clogo{width:100%;margin:0}.cside{display:flex;flex-direction:column;align-items:center;gap:8px}.cside .sacks{width:100%}@media(max-width:700px){.ctop{grid-template-columns:1fr}.ctop .clogo{display:none}}
 .clogo{width:44%;margin-top:-1%;filter:drop-shadow(0 4px 6px #0003)}
 .cmid{display:flex;align-items:center;gap:clamp(8px,2vw,18px)}
 .turn{background:#fffffff0;border-radius:18px;padding:6px 12px 6px 6px;display:flex;align-items:center;gap:8px;font-weight:900;font-size:clamp(12px,1.9vw,16px);color:#22261f;box-shadow:0 3px 0 #0002}
@@ -158,7 +158,7 @@ table{border-collapse:collapse;width:100%;font-size:15px;margin-top:8px}td,th{bo
 </head>
 <body>
 <header class="top">
-  <img src="img/escudo.png" alt="Escudo I.E. Ciudadela del Sur">
+  <img src="escudo.png" alt="Escudo I.E. Ciudadela del Sur">
   <div><b>El camino del café</b><small>Grado primero · I.E. Ciudadela del Sur · Sede La Fachada</small></div>
   <nav><a href="#inicio">Inicio</a><a href="#jugar">Jugar</a><a href="#investigacion">La investigación</a></nav>
 </header>
@@ -168,14 +168,14 @@ table{border-collapse:collapse;width:100%;font-size:15px;margin-top:8px}td,th{bo
   <div class="cover">
     <div class="frame">
       <div class="scene" role="img" aria-label="Preventín arriero con su mula en la finca cafetera"></div>
-      <img class="logo" src="img/logo.webp" alt="El camino del café">
+      <img class="logo" src="logo.webp" alt="El camino del café">
       <div class="doors">
-        <a class="door j" href="#jugar"><span class="ic"><img src="img/ficha-mula.png" alt=""></span><div><b>Jugar</b><span>Tira el dado, recorre la finca y llena tu costal de granos</span></div></a>
+        <a class="door j" href="#jugar"><span class="ic"><img src="ficha-mula.png" alt=""></span><div><b>Jugar</b><span>Tira el dado, recorre la finca y llena tu costal de granos</span></div></a>
         <a class="door i" href="#investigacion"><span class="ic"><svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path d="M13 8v24l20-12z" fill="#0b3a82"/></svg></span><div><b>Ver la investigación</b><span>Fotos, entrevistas, dibujos, tips y maquetas</span></div></a>
       </div>
     </div>
     <div class="intro">
-      <img src="img/preventin.gif" alt="Preventín, la mascota">
+      <img src="preventin.gif" alt="Preventín, la mascota">
       <div><h1>Una historia que germina en nuestra huerta escolar</h1><p>Los niños y niñas de primero exploraron la huerta, entrevistaron a sus abuelos y familias y registraron todo lo que descubrieron sobre la planta del café y el Paisaje Cultural Cafetero.</p></div>
     </div>
   </div>
@@ -206,7 +206,7 @@ table{border-collapse:collapse;width:100%;font-size:15px;margin-top:8px}td,th{bo
 <section id="v-investigacion" class="view band">
   <div class="wrap">
     <div class="ihead"><div><h2>La investigación de grado primero</h2>
-    <p>Queríamos conocer la planta del café de nuestra huerta escolar: cómo es, qué necesita para crecer y qué saben de ella nuestros abuelos y familias. Investigamos en cuatro momentos.</p></div><img src="img/logo.webp" alt="" loading="lazy"></div>
+    <p>Queríamos conocer la planta del café de nuestra huerta escolar: cómo es, qué necesita para crecer y qué saben de ella nuestros abuelos y familias. Investigamos en cuatro momentos.</p></div><img src="logo.webp" alt="" loading="lazy"></div>
     <div id="moms"></div>
     <div class="mom" style="--c:var(--azul)">
       <span class="num">Ficha</span><h3>Técnicas e instrumentos</h3>
@@ -262,7 +262,7 @@ reciclaje:'<circle cx="32" cy="32" r="21" fill="none" stroke="#2f8a3a" stroke-wi
 suelo:'<rect x="4" y="38" width="56" height="20" rx="4" fill="#8a5a33"/><g fill="#5e3a1e"><circle cx="14" cy="48" r="2"/><circle cx="30" cy="52" r="2"/><circle cx="46" cy="46" r="2"/></g><path d="M30 38V20" stroke="#2f8a3a" stroke-width="4"/><path d="M30 26c-8 0-12-6-12-12 8 0 12 5 12 12zM30 24c7 0 11-5 11-11-7 0-11 4-11 11z" fill="#4caf50"/><path d="M52 6l-8 24" stroke="#9a9a9a" stroke-width="4" stroke-linecap="round"/>',
 tip:'<path d="M32 6a17 17 0 0 0-10 31v7h20v-7A17 17 0 0 0 32 6z" fill="#f6b80f"/><path d="M26 30l6-8 6 8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="23" y="47" width="18" height="7" rx="3" fill="#6d6d6d"/>'
 };
-const ICON_IMG={semilla:'img/iconos/semilla.webp',brote:'img/iconos/brote.webp',planta:'img/iconos/planta.webp',flor:'img/iconos/flor.webp',abeja:'img/iconos/abeja.webp',cereza:'img/iconos/cereza.webp',abuelo:'img/iconos/abuelo.webp',pregunta:'img/iconos/pregunta.webp',sorpresa:'img/iconos/sorpresa.webp',tip:'img/iconos/tip.webp',finca:'img/iconos/finca.webp',despulpar:'img/iconos/despulpar.webp',sol:'img/iconos/sol.webp',trillar:'img/iconos/trillar.webp',molino:'img/iconos/molino.webp',costal:'img/iconos/costal.webp',jeep:'img/iconos/jeep.webp',taza:'img/iconos/taza.webp',arepa:'img/iconos/arepa.webp',canasto:'img/iconos/canasto.webp',festival:'img/iconos/festival.webp',sombrero:'img/iconos/sombrero.webp',gente:'img/iconos/gente.webp',pcc:'img/iconos/pcc.webp',patrimonio:'img/iconos/patrimonio.webp',suelo:'img/iconos/suelo.webp',gota:'img/iconos/gota.webp',pajaro:'img/iconos/pajaro.webp',reciclaje:'img/iconos/reciclaje.webp'};/* para usar imágenes propias: ICON_IMG.abeja='img/iconos/abeja.png' */
+const ICON_IMG={semilla:'iconos/semilla.webp',brote:'iconos/brote.webp',planta:'iconos/planta.webp',flor:'iconos/flor.webp',abeja:'iconos/abeja.webp',cereza:'iconos/cereza.webp',abuelo:'iconos/abuelo.webp',pregunta:'iconos/pregunta.webp',sorpresa:'iconos/sorpresa.webp',tip:'iconos/tip.webp',finca:'iconos/finca.webp',despulpar:'iconos/despulpar.webp',sol:'iconos/sol.webp',trillar:'iconos/trillar.webp',molino:'iconos/molino.webp',costal:'iconos/costal.webp',jeep:'iconos/jeep.webp',taza:'iconos/taza.webp',arepa:'iconos/arepa.webp',canasto:'iconos/canasto.webp',festival:'iconos/festival.webp',sombrero:'iconos/sombrero.webp',gente:'iconos/gente.webp',pcc:'iconos/pcc.webp',patrimonio:'iconos/patrimonio.webp',suelo:'iconos/suelo.webp',gota:'iconos/gota.webp',pajaro:'iconos/pajaro.webp',reciclaje:'iconos/reciclaje.webp'};/* para usar imágenes propias: ICON_IMG.abeja='iconos/abeja.png' */
 const icon=k=>ICON_IMG[k]?`<img class="ii" src="${ICON_IMG[k]}" alt="">`:`<svg viewBox="0 0 64 64" aria-hidden="true">${IC[k]}</svg>`;
 const BEAN='<svg class="bean" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="8" ry="10.5" fill="#6b3f22" transform="rotate(25 12 12)"/><path d="M9 4c4 4 2 12 6 16" stroke="#c9a074" stroke-width="2" fill="none"/></svg>';
 
@@ -289,26 +289,26 @@ const ABUELOS=[
 ];
 const SORP={n:'Sorpresa',k:'sorpresa',i:'sorpresa'},PREG={n:'Pregunta',s:'del cafetal',k:'pregunta',i:'pregunta'},TIP={n:'Tip del',s:'investigador',k:'tip',i:'tip',g:2},ABU={n:'La voz',s:'del abuelo',k:'abuelo',i:'abuelo',g:3};
 const CELLS=[
-{n:'Inicio',s:'Semillero',k:'salida',i:'semilla',g:2,m:{img:'img/huerta-3.jpg'},t:'Aquí empieza el camino: en el semillero ponemos la semilla en tierra blanda y la cuidamos hasta que brota. Cada vez que pasas por el Inicio ganas 2 granos.'},
-{n:'Sembrar',q:['¿Qué necesita la matica para crecer?','Tierra, agua y sol','Solo gaseosa','Estar en la oscuridad'],k:'etapa',i:'brote',g:2,m:{img:'img/huerta-1.jpg'},t:'En la huerta escolar sembramos con nuestras propias manos. La matica necesita tierra buena, agua y sol.'},
+{n:'Inicio',s:'Semillero',k:'salida',i:'semilla',g:2,m:{img:'huerta-3.jpg'},t:'Aquí empieza el camino: en el semillero ponemos la semilla en tierra blanda y la cuidamos hasta que brota. Cada vez que pasas por el Inicio ganas 2 granos.'},
+{n:'Sembrar',q:['¿Qué necesita la matica para crecer?','Tierra, agua y sol','Solo gaseosa','Estar en la oscuridad'],k:'etapa',i:'brote',g:2,m:{img:'huerta-1.jpg'},t:'En la huerta escolar sembramos con nuestras propias manos. La matica necesita tierra buena, agua y sol.'},
 SORP,
-{n:'Crecer',q:['¿Cuál de estas es una parte de la mata de café?','La raíz','La rueda','La ventana'],k:'etapa',i:'planta',g:2,m:{img:'img/dib-partes-planta.jpg'},t:'La mata de café tiene raíz, tallo, hojas, flores y frutos. Así la dibujamos en el cuaderno.'},
+{n:'Crecer',q:['¿Cuál de estas es una parte de la mata de café?','La raíz','La rueda','La ventana'],k:'etapa',i:'planta',g:2,m:{img:'dib-partes-planta.jpg'},t:'La mata de café tiene raíz, tallo, hojas, flores y frutos. Así la dibujamos en el cuaderno.'},
 TIP,
-{n:'Florecer',q:['¿De qué color son las flores del café?','Blancas','Negras','Azules'],k:'etapa',i:'flor',g:2,m:{img:'img/dib-ciclo-cafe.jpg'},t:'La mata de café da flores blancas y olorosas. De cada flor nace una cereza: primero verde, luego amarilla y al final roja.'},
+{n:'Florecer',q:['¿De qué color son las flores del café?','Blancas','Negras','Azules'],k:'etapa',i:'flor',g:2,m:{img:'dib-ciclo-cafe.jpg'},t:'La mata de café da flores blancas y olorosas. De cada flor nace una cereza: primero verde, luego amarilla y al final roja.'},
 {n:'Polinizar',q:['¿Qué insecto visita las flores del café?','La abeja','El caracol','El pez'],k:'amb',i:'abeja',g:2,t:'Las abejas y otros insectos visitan las flores del café. Así ayudan a que la mata dé más cerezas.'},
 PREG,
 {n:'Cosecha',q:['¿Cuándo se recogen las cerezas de café?','Cuando están rojas y maduras','Cuando están verdes','Cuando se caen al suelo'],s:'¡a recoger!',k:'etapa',i:'cereza',g:3,m:{vid:'v/cosecha.mp4',a:0,b:9},t:'Las cerezas se recogen a mano, una por una, cuando están rojas y maduras. Así lo hacían las chapoleras.'},
 ABU,
-{n:'Visita',q:['¿Qué encontramos en una finca cafetera?','Cafetal, casa y árboles de sombra','Edificios y ascensores','Playa y arena'],s:'la finca',k:'finca',i:'finca',g:3,m:{img:'img/maqueta-finca.jpg'},t:'En la finca cafetera vive la familia caficultora: casa de balcones de colores, cafetal, plátano y árboles de sombra. ¡Así la construimos en maqueta!'},
+{n:'Visita',q:['¿Qué encontramos en una finca cafetera?','Cafetal, casa y árboles de sombra','Edificios y ascensores','Playa y arena'],s:'la finca',k:'finca',i:'finca',g:3,m:{img:'maqueta-finca.jpg'},t:'En la finca cafetera vive la familia caficultora: casa de balcones de colores, cafetal, plátano y árboles de sombra. ¡Así la construimos en maqueta!'},
 {n:'Despulpar',q:['¿Qué le quita la despulpadora a la cereza?','La cáscara roja','Las hojas','La raíz'],k:'etapa',i:'despulpar',g:2,m:{vid:'v/finca-el-ocaso.mp4',a:290,b:312},t:'La despulpadora le quita la cáscara roja a la cereza y deja el grano listo para lavar.'},
-{n:'Secar',q:['¿Para qué sirve el secador solar de túnel?','Para proteger el café de la lluvia','Para mojar el café','Para guardar juguetes'],k:'etapa',i:'sol',g:2,m:{img:'img/maqueta-secado.jpg'},t:'El grano se seca al sol. El secador solar de túnel lo protege de la lluvia y el caficultor lo revuelve con el rastrillo.'},
+{n:'Secar',q:['¿Para qué sirve el secador solar de túnel?','Para proteger el café de la lluvia','Para mojar el café','Para guardar juguetes'],k:'etapa',i:'sol',g:2,m:{img:'maqueta-secado.jpg'},t:'El grano se seca al sol. El secador solar de túnel lo protege de la lluvia y el caficultor lo revuelve con el rastrillo.'},
 SORP,
 {n:'Trillar',q:['¿Qué pierde el grano seco al trillarlo?','Su cascarita','Su color rojo','Sus hojas'],k:'etapa',i:'trillar',g:2,m:{vid:'v/finca-el-ocaso.mp4',a:335,b:356},t:'Al trillar, el grano seco pierde su cascarita. En la finca conocimos el pergamino, la almendra, el cisco y la pasilla.'},
 TIP,
 {n:'Tostar',q:['¿Dónde se muele el café tostado?','En el molino','En la nevera','En la lavadora'],s:'y moler',k:'etapa',i:'molino',g:2,m:{vid:'v/finca-el-ocaso.mp4',a:530,b:552},t:'La almendra se tuesta hasta quedar oscura y olorosa, y luego se muele en el molino.'},
 PREG,
 {n:'Empacar',q:['¿En qué se empaca el café seco?','En costales','En bolsas de agua','En cajas de juguetes'],k:'etapa',i:'costal',g:2,t:'El café seco se empaca en costales para que no se dañe con la humedad y pueda viajar lejos.'},
-{n:'Transportar',q:['¿Qué carro de nuestra región lleva el café por las montañas?','El jeep Willys','Un barco','Un tren bala'],k:'etapa',i:'jeep',g:2,m:{img:'img/escena-finca.jpg'},t:'Antes, las mulas cargaban el café por las lomas, como la de Preventín arriero. Hoy también lo lleva el jeep Willys, el carro de nuestra región.'},
+{n:'Transportar',q:['¿Qué carro de nuestra región lleva el café por las montañas?','El jeep Willys','Un barco','Un tren bala'],k:'etapa',i:'jeep',g:2,m:{img:'escena-finca.jpg'},t:'Antes, las mulas cargaban el café por las lomas, como la de Preventín arriero. Hoy también lo lleva el jeep Willys, el carro de nuestra región.'},
 {n:'La taza',q:['¿Con qué se cuela el café molido?','Con agua caliente','Con jugo de naranja','Con leche fría'],s:'¡llegaste!',k:'taza',i:'taza',g:5,m:{vid:'v/finca-el-ocaso.mp4',a:588,b:612},t:'¡Llegaste a la taza! El café molido se cuela con agua caliente. Todo el camino, desde la semilla, termina aquí.'},
 ABU,
 SORP,
@@ -317,16 +317,16 @@ PREG,
 {n:'Artesanías',q:['¿Qué tejían los artesanos para recoger el café?','Canastos','Celulares','Zapatos'],k:'pcc',i:'canasto',g:2,t:'Con fibras naturales se tejen canastos, como los que usaban los abuelos para recoger el café, y también sombreros y carrieles.'},
 TIP,
 {n:'Festivales',q:['¿En qué municipio del Quindío se celebra el Reinado Nacional del Café?','Calarcá','Cartagena','Leticia'],k:'pcc',i:'festival',g:2,t:'En Calarcá, Quindío, se celebra el Reinado Nacional del Café con desfiles, música y comparsas.'},
-{n:'Cultura',q:['¿Cuál es una prenda de nuestra tradición cafetera?','La ruana','El traje de astronauta','El disfraz de pirata'],s:'y tradición',k:'pcc',i:'sombrero',g:2,m:{img:'img/poster-tip-nina-traje-1.jpg'},t:'La ruana, el sombrero, el carriel y el traje de chapolera son parte de nuestra tradición cafetera.'},
+{n:'Cultura',q:['¿Cuál es una prenda de nuestra tradición cafetera?','La ruana','El traje de astronauta','El disfraz de pirata'],s:'y tradición',k:'pcc',i:'sombrero',g:2,m:{img:'poster-tip-nina-traje-1.jpg'},t:'La ruana, el sombrero, el carriel y el traje de chapolera son parte de nuestra tradición cafetera.'},
 {n:'Asociación',q:['¿Para qué se unen los caficultores?','Para trabajar juntos','Para pelear','Para dormir'],s:'de caficultores',k:'pcc',i:'gente',g:2,t:'Los caficultores se unen para trabajar juntos. La Federación Nacional de Cafeteros, creada en 1927, los ayuda a cultivar y vender su café.'},
-{n:'Recorre',q:['¿Cómo se llama el paisaje donde vivimos?','Paisaje Cultural Cafetero','Paisaje del desierto','Paisaje de la nieve'],s:'el PCC',k:'pccc',i:'pcc',g:3,m:{img:'img/dib-paisaje-cultural.jpg'},t:'Vivimos en el Paisaje Cultural Cafetero. En 2011 la UNESCO lo declaró Patrimonio de la Humanidad por sus montañas, sus fincas y su gente.'},
-{n:'Proteger',q:['¿Qué es proteger el patrimonio?','Cuidar nuestras casas, tradiciones y paisajes','Botar basura en la calle','Tumbar las casas viejas'],s:'el patrimonio',k:'pcc',i:'patrimonio',g:2,m:{img:'img/dib-paisaje-cafetero.jpg'},t:'Cuidar las casas de bahareque, las tradiciones y los paisajes es proteger lo que nos hace únicos.'},
+{n:'Recorre',q:['¿Cómo se llama el paisaje donde vivimos?','Paisaje Cultural Cafetero','Paisaje del desierto','Paisaje de la nieve'],s:'el PCC',k:'pccc',i:'pcc',g:3,m:{img:'dib-paisaje-cultural.jpg'},t:'Vivimos en el Paisaje Cultural Cafetero. En 2011 la UNESCO lo declaró Patrimonio de la Humanidad por sus montañas, sus fincas y su gente.'},
+{n:'Proteger',q:['¿Qué es proteger el patrimonio?','Cuidar nuestras casas, tradiciones y paisajes','Botar basura en la calle','Tumbar las casas viejas'],s:'el patrimonio',k:'pcc',i:'patrimonio',g:2,m:{img:'dib-paisaje-cafetero.jpg'},t:'Cuidar las casas de bahareque, las tradiciones y los paisajes es proteger lo que nos hace únicos.'},
 SORP,
-{n:'Cuidar',q:['¿Qué ayuda a cuidar el suelo?','Sembrar árboles de sombra','Quemar la tierra','Echarle basura'],s:'el suelo',k:'amb',i:'suelo',g:2,m:{img:'img/huerta-4.jpg'},t:'Sembrar árboles de sombra y no quemar la tierra la mantiene viva y fuerte para la mata de café.'},
+{n:'Cuidar',q:['¿Qué ayuda a cuidar el suelo?','Sembrar árboles de sombra','Quemar la tierra','Echarle basura'],s:'el suelo',k:'amb',i:'suelo',g:2,m:{img:'huerta-4.jpg'},t:'Sembrar árboles de sombra y no quemar la tierra la mantiene viva y fuerte para la mata de café.'},
 TIP,
-{n:'Conservar',q:['¿Cómo cuidamos las quebradas?','No botando basura al agua','Echándoles jabón','Secándolas'],s:'el agua',k:'amb',i:'gota',g:2,m:{img:'img/dib-paisaje-1.jpg'},t:'Las quebradas riegan los cafetales. Por eso no botamos basura al agua y cuidamos los árboles de sus orillas.'},
+{n:'Conservar',q:['¿Cómo cuidamos las quebradas?','No botando basura al agua','Echándoles jabón','Secándolas'],s:'el agua',k:'amb',i:'gota',g:2,m:{img:'dib-paisaje-1.jpg'},t:'Las quebradas riegan los cafetales. Por eso no botamos basura al agua y cuidamos los árboles de sus orillas.'},
 PREG,
-{n:'Biodiversidad',q:['¿Quiénes viven en los cafetales?','Aves, mariposas e insectos','Pingüinos','Tiburones'],k:'amb',i:'pajaro',g:2,m:{img:'img/dib-paisaje-2.jpg'},t:'En los cafetales viven aves, mariposas, insectos y muchas plantas. Los árboles de sombra son su casa.'},
+{n:'Biodiversidad',q:['¿Quiénes viven en los cafetales?','Aves, mariposas e insectos','Pingüinos','Tiburones'],k:'amb',i:'pajaro',g:2,m:{img:'dib-paisaje-2.jpg'},t:'En los cafetales viven aves, mariposas, insectos y muchas plantas. Los árboles de sombra son su casa.'},
 ABU,
 {n:'Sostenibilidad',q:['¿En qué se convierte la pulpa del café?','En abono para la huerta','En plástico','En dulces'],k:'amb',i:'reciclaje',g:2,t:'La pulpa del café no se bota: se convierte en abono para la huerta. ¡Así cuidamos el planeta!'}
 ];
@@ -366,10 +366,10 @@ const QS=[
 {q:'¿Qué animal ayudaba a cargar el café en las lomas?',o:['El pez','La mula','El gato'],c:1}
 ];
 const CHARS=[
-{id:'pv',n:'Preventín',d:'el explorador',img:'img/ficha-preventin.webp',c:'#1f6fd1'},
-{id:'ar',n:'Preventín arriero',d:'el caficultor',img:'img/ficha-arriero.png',c:'#d0242b'},
-{id:'mu',n:'La mula',d:'la cargadora',img:'img/ficha-mula.png',c:'#2f8a3a'},
-{id:'ch',n:'La chapolera',d:'la recolectora',img:'img/ficha-chapolera.png',c:'#c2185b'}
+{id:'pv',n:'Preventín',d:'el explorador',img:'ficha-preventin.webp',c:'#1f6fd1'},
+{id:'ar',n:'Preventín arriero',d:'el caficultor',img:'ficha-arriero.png',c:'#d0242b'},
+{id:'mu',n:'La mula',d:'la cargadora',img:'ficha-mula.png',c:'#2f8a3a'},
+{id:'ch',n:'La chapolera',d:'la recolectora',img:'ficha-chapolera.png',c:'#c2185b'}
 ];
 const av=(p,cls='')=>`<span class="av ${cls}" style="--c:${p.c}"><img src="${p.img}" alt=""></span>`;
 
@@ -388,7 +388,7 @@ function buildBoard(){
  let h='';
  CELLS.forEach((c,i)=>{const [r,co]=POS[i];
   h+=`<div class="cell${i%10===0?' corner':''}${SIDE(i)}" style="grid-area:${r+1}/${co+1};--k:${KC[c.k]}" id="c${i}">${icon(c.i)}<span class="full">${esc(c.n)}${c.s?`<br>${esc(c.s)}`:''}</span><span class="sh">${esc(c.sh||c.n)}</span><div class="toks"></div></div>`});
- h+=`<div class="center"><div class="ctop"><img class="clogo" src="img/logo.webp" alt="El camino del café"><div class="cside"><div class="cmid"><div class="turn" id="turn"></div><button class="dice" id="dice" aria-label="Tirar el dado">${die(5)}</button></div><div class="hint" id="hint">Toca el dado para avanzar</div><div class="sacks" id="sacks"></div></div></div></div>`;
+ h+=`<div class="center"><div class="ctop"><img class="clogo" src="logo.webp" alt="El camino del café"><div class="cside"><div class="cmid"><div class="turn" id="turn"></div><button class="dice" id="dice" aria-label="Tirar el dado">${die(5)}</button></div><div class="hint" id="hint">Toca el dado para avanzar</div><div class="sacks" id="sacks"></div></div></div></div>`;
  $('#board').innerHTML=h;$('#dice').onclick=roll;
 }
 function render(){
@@ -480,14 +480,14 @@ modal.addEventListener('click',e=>{if(e.target===modal&&!box.querySelector('#nx,
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('on')&&!box.querySelector('#nx,#again,#toq'))close()});
 
 /* ---------- investigación ---------- */
-const H=n=>Array.from({length:n},(_,i)=>`img/huerta-${i+1}.jpg`);
+const H=n=>Array.from({length:n},(_,i)=>`huerta-${i+1}.jpg`);
 const DIB=[['dib-partes-planta','Partes de la planta'],['dib-ciclo-cafe','Ciclo de vida del café'],['dib-ciclo-planta','Ciclo de vida de la planta'],['dib-germinacion','Germinación'],['dib-relieve','El relieve colombiano'],['dib-paisaje-cafetero','Paisaje cafetero'],['dib-paisaje-cultural','Paisaje cultural'],['dib-paisaje-1','Nuestro paisaje'],['dib-paisaje-2','Nuestro paisaje'],['dib-finca-diferencias','Diferencias en la finca'],['dib-laberinto','Laberinto del caficultor'],['dib-alimentos','Pirámide de alimentos']];
 const V=(f,cap,dur)=>({f,cap,dur});
 const MOMS=[
 {c:'var(--hoja)',n:'Momento 1',h:'Observamos y exploramos nuestro entorno',p:'Recorrimos la huerta escolar para conocer las plantas que viven allí, sobre todo la mata de café. Observamos sus hojas, flores y frutos, tocamos la tierra, sembramos en el semillero y aprendimos que la planta necesita suelo, agua y luz.',img:H(12).map(s=>[s,'En la huerta escolar'])},
 {c:'#c98a00',n:'Momento 2',h:'La voz de nuestros abuelos',p:'Con preguntas preparadas y micrófono en mano, entrevistamos a abuelos, padres y familiares que han trabajado el café. Nos contaron qué variedades conocen, qué herramientas usaban antes y cómo era el proceso en la finca.',vids:[V('abuelo-variedades','Un familiar que trabajó en finca cafetera: variedades y herramientas','1:32'),V('abuelo-1','Entrevista al abuelo · parte 1','0:57'),V('abuelo-2','Entrevista al abuelo · parte 2','0:54'),V('abuelo-3','Entrevista al abuelo · parte 3','1:12'),V('finca-el-ocaso','Emanuel Matallana (1-5): los procesos del café en la finca El Ocaso','10:31'),V('entrevista-papa','Entrevista en familia','1:58'),V('entrevista-familia','Entrevista en familia, con traje típico','2:53'),V('entrevista-mesa','Entrevista a un familiar','0:31')]},
-{c:'#0f8a6a',n:'Momento 3',h:'Registramos nuestros descubrimientos',p:'Dibujamos y coloreamos las partes de la planta, su ciclo de vida y el paisaje cafetero, y grabamos tips en video para contar lo que aprendimos con nuestras propias palabras.',img:DIB.map(([f,c])=>[`img/${f}.jpg`,c]),vids:[V('preventin-arriero','Preventín arriero y su mula','0:21'),V('tip-nina-traje-1','Tip con traje típico','0:15'),V('tip-nino-sombrero','Tip con sombrero y ruana','0:15'),V('tip-nina-traje-2','Tip desde el cafetal','0:15'),V('tip-cafetal-nina','Tip desde el cafetal','0:23'),V('tip-cafetal-nino','Tip desde el cafetal','0:09'),V('tip-ruana','Tip junto a la mata de café','0:20'),V('tip-semilla','Tip: de la semilla a la mata','0:24'),V('cosecha','Recolección en el cafetal','0:22')]},
-{c:'var(--cereza)',n:'Momento 4',h:'Compartimos lo que aprendimos',p:'Construimos maquetas de la finca cafetera y del secado solar, y publicamos nuestra investigación en el periódico digital escolar con la ayuda de Preventín.',img:[['img/maqueta-finca.jpg','Maqueta de la finca cafetera'],['img/maqueta-secado.jpg','Maquetas: secado solar de túnel y secado en patio']],learn:true}
+{c:'#0f8a6a',n:'Momento 3',h:'Registramos nuestros descubrimientos',p:'Dibujamos y coloreamos las partes de la planta, su ciclo de vida y el paisaje cafetero, y grabamos tips en video para contar lo que aprendimos con nuestras propias palabras.',img:DIB.map(([f,c])=>[`${f}.jpg`,c]),vids:[V('preventin-arriero','Preventín arriero y su mula','0:21'),V('tip-nina-traje-1','Tip con traje típico','0:15'),V('tip-nino-sombrero','Tip con sombrero y ruana','0:15'),V('tip-nina-traje-2','Tip desde el cafetal','0:15'),V('tip-cafetal-nina','Tip desde el cafetal','0:23'),V('tip-cafetal-nino','Tip desde el cafetal','0:09'),V('tip-ruana','Tip junto a la mata de café','0:20'),V('tip-semilla','Tip: de la semilla a la mata','0:24'),V('cosecha','Recolección en el cafetal','0:22')]},
+{c:'var(--cereza)',n:'Momento 4',h:'Compartimos lo que aprendimos',p:'Construimos maquetas de la finca cafetera y del secado solar, y publicamos nuestra investigación en el periódico digital escolar con la ayuda de Preventín.',img:[['maqueta-finca.jpg','Maqueta de la finca cafetera'],['maqueta-secado.jpg','Maquetas: secado solar de túnel y secado en patio']],learn:true}
 ];
 const LEARN=[
 ['La planta','Reconocimos las partes de la mata de café (raíz, tallo, hojas, flores y frutos) y su ciclo de vida, desde la semilla hasta la cereza roja.'],
@@ -498,12 +498,12 @@ const LEARN=[
 ['Cómo lo contamos','Con dibujos científicos, entrevistas, tips en video, maquetas y este juego del periódico digital.']];
 $('#moms').innerHTML=MOMS.map((m,k)=>`<div class="mom" style="--c:${m.c}" id="m${k+1}"><span class="num">${m.n}</span><h3>${esc(m.h)}</h3><p>${esc(m.p)}</p>
 ${m.img?`<div class="gal">${m.img.map(([s,c])=>`<button data-img="${s}" data-cap="${esc(c)}" aria-label="${esc(c)}"><img src="${s}" alt="${esc(c)}" loading="lazy"></button>`).join('')}</div>`:''}
-${m.vids?`<div class="vids"><div class="gal">${m.vids.map(v=>`<button data-vid="v/${v.f}.mp4" data-cap="${esc(v.cap)}" aria-label="Ver video: ${esc(v.cap)}"><img src="img/poster-${v.f}.jpg" alt="" loading="lazy"><span class="play"><i><svg width="22" height="22" viewBox="0 0 22 22"><path d="M6 3v16l13-8z" fill="#0b3a82"/></svg></i></span><figcaption>${esc(v.cap)} · ${v.dur}</figcaption></button>`).join('')}</div></div>`:''}
+${m.vids?`<div class="vids"><div class="gal">${m.vids.map(v=>`<button data-vid="v/${v.f}.mp4" data-cap="${esc(v.cap)}" aria-label="Ver video: ${esc(v.cap)}"><img src="poster-${v.f}.jpg" alt="" loading="lazy"><span class="play"><i><svg width="22" height="22" viewBox="0 0 22 22"><path d="M6 3v16l13-8z" fill="#0b3a82"/></svg></i></span><figcaption>${esc(v.cap)} · ${v.dur}</figcaption></button>`).join('')}</div></div>`:''}
 ${m.learn?`<h3 style="margin-top:14px">Lo que descubrimos</h3><ul class="learn">${LEARN.map(([b,t])=>`<li><b>${b}</b>${esc(t)}</li>`).join('')}</ul>`:''}</div>`).join('');
 $('#moms').addEventListener('click',e=>{const b=e.target.closest('.gal button');if(!b)return;
  const m=b.dataset.vid?{vid:b.dataset.vid}:{img:b.dataset.img};
  show(`<div class="mb" style="padding-top:18px"><h2 id="mTitle" style="font-size:24px">${esc(b.dataset.cap)}</h2>${media(m)}<div class="row"><button class="ok" id="cl">Cerrar</button></div></div>`);$('#cl').onclick=close});
-$('#strip').innerHTML=[1,2,3,4,11,12].map(i=>`<img src="img/huerta-${i}.jpg" alt="Niños de primero en la huerta escolar" loading="lazy">`).join('')+['dib-partes-planta','maqueta-finca','maqueta-secado'].map(f=>`<img src="img/${f}.jpg" alt="Trabajo de los estudiantes" loading="lazy">`).join('');
+$('#strip').innerHTML=[1,2,3,4,11,12].map(i=>`<img src="huerta-${i}.jpg" alt="Niños de primero en la huerta escolar" loading="lazy">`).join('')+['dib-partes-planta','maqueta-finca','maqueta-secado'].map(f=>`<img src="${f}.jpg" alt="Trabajo de los estudiantes" loading="lazy">`).join('');
 
 function route(){const h=(location.hash||'#inicio').slice(1);const v=['inicio','jugar','investigacion'].includes(h)?h:'inicio';
  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
